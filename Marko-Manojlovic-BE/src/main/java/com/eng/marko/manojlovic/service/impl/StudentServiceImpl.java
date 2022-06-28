@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,11 +47,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDto saveStudent(StudentDto studentDto) throws EntityExistsException {
-		Optional<Student> existingStudent = studentRepository.findById(studentDto.getStudentId());
-		if(existingStudent.isPresent()) {
-			throw new EntityExistsException(studentDto, "Student with id " + studentDto.getStudentId() + " already exists!");
-		} 
-		return studentMapper.toDto(studentRepository.save(studentMapper.toEntity(studentDto)));
+//		Optional<Student> existingStudent = studentRepository.findById(studentDto.getStudentId());
+//		if(existingStudent.isPresent()) {
+//			throw new EntityExistsException(studentDto, "Student with id " + studentDto.getStudentId() + " already exists!");
+//		} 
+		return studentMapper.toDtoNoId(studentRepository.save(studentMapper.toEntityNoId(studentDto)));
 	}
 
 	@Override
@@ -69,7 +68,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDto updateStudent(StudentDto student) throws InvalidEntityException {
-		return studentMapper.toDto(studentRepository.save(studentMapper.toEntity(student)));
+		if(studentRepository.existsById(student.getStudentId())) {
+			return studentMapper.toDto(studentRepository.save(studentMapper.toEntity(student)));
+		}
+		throw new InvalidEntityException(student, "Takav student ne postoji!");
 	}
-
 }

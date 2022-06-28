@@ -14,12 +14,12 @@ public class SemesterEntity implements Serializable {
 	private static final long serialVersionUID = 3645852034473462391L;
 	
 	@Id
+	@Column
 	private Integer semesterEntityId;
 	@Column
 	private String semesterName;
 
-	public SemesterEntity() {
-	}
+	public SemesterEntity() {}
 
 	public SemesterEntity(Integer semesterEntityId, String semesterName) {
 		super();
@@ -49,5 +49,4 @@ public class SemesterEntity implements Serializable {
 	public String toString() {
 		return "SemesterEntity [semesterEntityId=" + semesterEntityId + ", semesterName=" + semesterName + "]";
 	}
-
 }

@@ -21,6 +21,21 @@ public class StudentDto {
 	public StudentDto() {
 		super();
 	}
+	
+	
+	public StudentDto(String indexNumber, Integer indexYear, String firstname, String lastname, String email,
+			String address, City postalCode, Integer currentYearOfStudy) {
+		super();
+		this.indexNumber = indexNumber;
+		this.indexYear = indexYear;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.currentYearOfStudy = currentYearOfStudy;
+	}
+
 
 	public StudentDto(Long studentId, String indexNumber, Integer indexYear, String firstname, String lastname,
 			String email, String address, City postalCode, Integer currentYearOfStudy) {

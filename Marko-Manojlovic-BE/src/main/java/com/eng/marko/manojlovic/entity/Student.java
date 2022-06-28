@@ -43,6 +43,20 @@ public class Student implements Serializable {
 
 	public Student() {
 	}
+	
+	public Student(String indexNumber, Integer indexYear, String firstname, String lastname, String email,
+			String address, City postalCode, Integer currentYearOfStudy) {
+		super();
+		this.indexNumber = indexNumber;
+		this.indexYear = indexYear;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.currentYearOfStudy = currentYearOfStudy;
+	}
+
 
 	public Student(Long studentId, String indexNumber, Integer indexYear, String firstname, String lastname,
 			String email, String address, City postalCode, Integer currentYearOfStudy) {

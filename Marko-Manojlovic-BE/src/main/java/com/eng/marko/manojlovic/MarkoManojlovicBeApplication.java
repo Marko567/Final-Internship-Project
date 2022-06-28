@@ -9,5 +9,4 @@ public class MarkoManojlovicBeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MarkoManojlovicBeApplication.class, args);
 	}
-
 }

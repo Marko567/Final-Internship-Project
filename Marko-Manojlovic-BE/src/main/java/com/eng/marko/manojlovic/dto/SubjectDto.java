@@ -18,6 +18,14 @@ public class SubjectDto {
 	public SubjectDto() {
 		super();
 	}
+	
+	public SubjectDto(String name, String description, Integer noOfEsp, SemesterEntity semester) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.noOfEsp = noOfEsp;
+		this.semester = semester;
+	}
 
 	public SubjectDto(Long subjectId, String name, String description, Integer noOfEsp, SemesterEntity semester) {
 		super();

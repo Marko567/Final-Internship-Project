@@ -13,31 +13,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table
 public class Subject implements Serializable {
-	
+
 	private static final long serialVersionUID = 316218500660471269L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long subjectId;
-	
+
 	@Column
 	private String name;
 	@Column
 	private String description;
 	@Column
 	private Integer noOfEsp;
-	
-	@ManyToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn(name="semester")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "semester")
 	private SemesterEntity semester;
 
-	public Subject() {}
-	
+	public Subject() {
+	}
+
+	public Subject(String name, String description, Integer noOfEsp, SemesterEntity semester) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.noOfEsp = noOfEsp;
+		this.semester = semester;
+	}
+
 	public Subject(Long subjectId, String name, String description, Integer noOfEsp, SemesterEntity semester) {
 		super();
 		this.subjectId = subjectId;
@@ -46,7 +54,7 @@ public class Subject implements Serializable {
 		this.noOfEsp = noOfEsp;
 		this.semester = semester;
 	}
-	
+
 	public Long getSubjectId() {
 		return subjectId;
 	}
@@ -111,5 +119,5 @@ public class Subject implements Serializable {
 		return "Subject [subjectId=" + subjectId + ", name=" + name + ", description=" + description + ", noOfEsp="
 				+ noOfEsp + ", semester=" + semester + "]";
 	}
-	
+
 }

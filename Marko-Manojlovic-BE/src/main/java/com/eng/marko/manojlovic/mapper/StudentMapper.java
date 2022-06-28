@@ -18,4 +18,17 @@ public class StudentMapper {
 				entity.getIndexYear(), entity.getFirstname(), entity.getLastname(), entity.getEmail(), 
 				entity.getAddress(), entity.getPostalCode(), entity.getCurrentYearOfStudy());
 	}
+	
+	
+	public Student toEntityNoId(StudentDto dto) {
+		return new Student(dto.getIndexNumber(),
+				dto.getIndexYear(), dto.getFirstname(), dto.getLastname(), dto.getEmail(), 
+				dto.getAddress(), dto.getPostalCode(), dto.getCurrentYearOfStudy());
+	}
+	
+	public StudentDto toDtoNoId(Student entity) {
+		return new StudentDto(entity.getIndexNumber(),
+				entity.getIndexYear(), entity.getFirstname(), entity.getLastname(), entity.getEmail(), 
+				entity.getAddress(), entity.getPostalCode(), entity.getCurrentYearOfStudy());
+	}
 }

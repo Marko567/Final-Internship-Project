@@ -15,4 +15,12 @@ public class SubjectMapper {
 	public SubjectDto toDto(Subject entity) {
 		return new SubjectDto(entity.getSubjectId(), entity.getName(), entity.getDescription(), entity.getNoOfEsp(), entity.getSemester());
 	}
+	
+	public Subject toEntityNoId(SubjectDto dto) {
+		return new Subject(dto.getName(), dto.getDescription(), dto.getNoOfEsp(), dto.getSemester());
+	}
+	
+	public SubjectDto toDtoNoId(Subject entity) {
+		return new SubjectDto(entity.getName(), entity.getDescription(), entity.getNoOfEsp(), entity.getSemester());
+	}
 }
