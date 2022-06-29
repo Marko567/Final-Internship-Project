@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StudentService } from './core/services/student.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Marko-Manojlovic-FE';
+
+  constructor(private studentService: StudentService) {
+  }
+
+  onClick() {
+    this.studentService.getStudents().subscribe({
+        next: userLoginData => {
+          console.log('response:', userLoginData);
+        },
+        error: error => {
+          console.error('error', error.error);
+        }
+      })
+  }
 }

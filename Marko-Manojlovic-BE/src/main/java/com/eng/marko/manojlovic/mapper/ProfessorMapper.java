@@ -18,4 +18,16 @@ public class ProfessorMapper {
 				entity.getPostalCode(), entity.getPhone(),
 				entity.getReelectionDate(), entity.getTitle());
 	}
+	
+	public Professor toEntityNoId(ProfessorDto dto) {
+		return new Professor(dto.getFirstname(), dto.getLastname(), dto.getEmail(), dto.getAddress(),
+				dto.getPostalCode(), dto.getPhone(), dto.getReelectionDate(), dto.getTitle());
+	}
+	
+	public ProfessorDto toDtoNoId(Professor entity) {
+		return new ProfessorDto(entity.getFirstname(), entity.getLastname(),
+				entity.getEmail(), entity.getAddress(),
+				entity.getPostalCode(), entity.getPhone(),
+				entity.getReelectionDate(), entity.getTitle());
+	}
 }

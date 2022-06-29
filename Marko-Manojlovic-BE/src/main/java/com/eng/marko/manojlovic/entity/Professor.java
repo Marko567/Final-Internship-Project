@@ -48,6 +48,19 @@ public class Professor implements Serializable {
 
 	public Professor() {
 	}
+	
+	public Professor(String firstname, String lastname, String email, String address, City postalCode, String phone,
+			Date reelectionDate, Title title) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.phone = phone;
+		this.reelectionDate = reelectionDate;
+		this.title = title;
+	}
 
 	public Professor(Long professorId, String firstname, String lastname, String email, String address, City postalCode,
 			String phone, Date reelectionDate, Title title) {

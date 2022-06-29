@@ -15,8 +15,6 @@ import com.eng.marko.manojlovic.mapper.SubjectMapper;
 import com.eng.marko.manojlovic.repository.SubjectRepository;
 import com.eng.marko.manojlovic.service.SubjectService;
 
-
-
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
@@ -28,7 +26,7 @@ public class SubjectServiceImpl implements SubjectService {
 		this.subjectRepository = subjectRepository;
 		this.subjectMapper = subjectMapper;
 	}
-	
+
 	@Override
 	public List<SubjectDto> findAllSubjects() {
 		List<Subject> subjects = subjectRepository.findAll();
@@ -48,10 +46,6 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public SubjectDto saveSubject(SubjectDto subjectDto) throws EntityExistsException {
-//		Optional<Student> existingStudent = studentRepository.findById(studentDto.getStudentId());
-//		if(existingStudent.isPresent()) {
-//			throw new EntityExistsException(studentDto, "Student with id " + studentDto.getStudentId() + " already exists!");
-//		} 
 		return subjectMapper.toDtoNoId(subjectRepository.save(subjectMapper.toEntityNoId(subjectDto)));
 	}
 
@@ -60,11 +54,10 @@ public class SubjectServiceImpl implements SubjectService {
 		Optional<Subject> subject = subjectRepository.findById(id);
 		
 		if(!subject.isPresent()) {
-			throw new InvalidEntityException(subjectMapper.toDto(subject.get()), "Invalid entity!");
+			throw new InvalidEntityException(subjectMapper.toDto(subject.get()), "Invalid Entity!");
 		}
 		
 		subjectRepository.delete(subject.get());
-	
 	}
 
 	@Override
@@ -72,6 +65,7 @@ public class SubjectServiceImpl implements SubjectService {
 		if(subjectRepository.existsById(subject.getSubjectId())) {
 			return subjectMapper.toDto(subjectRepository.save(subjectMapper.toEntity(subject)));
 		}
-		throw new InvalidEntityException(subject, "Takav predmet ne postoji!");
+		throw new InvalidEntityException(subject, "Takav predmet ne postoji");
 	}
+
 }

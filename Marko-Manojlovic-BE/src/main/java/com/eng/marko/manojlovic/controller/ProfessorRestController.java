@@ -15,57 +15,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eng.marko.manojlovic.dto.SubjectDto;
+import com.eng.marko.manojlovic.dto.ProfessorDto;
 import com.eng.marko.manojlovic.exception.EntityExistsException;
 import com.eng.marko.manojlovic.exception.InvalidEntityException;
-import com.eng.marko.manojlovic.service.SubjectService;
+import com.eng.marko.manojlovic.service.ProfessorService;
 
 @RestController
-@RequestMapping("subjects")
-public class SubjectRestController {
-	private final SubjectService subjectService;
+@RequestMapping("professors")
+public class ProfessorRestController {
+	private final ProfessorService professorService;
 
-	public SubjectRestController(SubjectService subjectService) {
+	public ProfessorRestController(ProfessorService professorService) {
 		super();
-		this.subjectService = subjectService;
+		this.professorService = professorService;
 	}
 	
 	@GetMapping(path="all")
-	public @ResponseBody ResponseEntity<List<SubjectDto>> findAll() {
-		return ResponseEntity.ok(subjectService.findAllSubjects());
+	public @ResponseBody ResponseEntity<List<ProfessorDto>> findAll() { 
+		return ResponseEntity.ok(professorService.findAllProfessors());
 	}
 	
 	@GetMapping(path="{id}")
 	public @ResponseBody ResponseEntity<Object> findById(@PathVariable Long id) {
-		Optional<SubjectDto> subjectDto = subjectService.findById(id);
-		return subjectDto.<ResponseEntity<Object>>map(dto -> ResponseEntity.status(HttpStatus.OK).body(dto))
-				.orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid ID!"));
+		Optional<ProfessorDto> professorDto = professorService.findById(id);
+		
+		return professorDto.<ResponseEntity<Object>>map(dto -> ResponseEntity.status(HttpStatus.OK).body(dto))
+				.orElseGet( () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid ID!"));
 	}
 	
 	@PostMapping()
-	public @ResponseBody ResponseEntity<Object> saveSubject(@RequestBody SubjectDto subjectDto) {
+	public @ResponseBody ResponseEntity<Object> saveProfessor(@RequestBody ProfessorDto professorDto) {
 		try {
-			SubjectDto subject = subjectService.saveSubject(subjectDto);
-			return ResponseEntity.status(HttpStatus.OK).body(subject);
+			ProfessorDto professor = professorService.saveProfessor(professorDto);
+			return ResponseEntity.status(HttpStatus.OK).body(professor);
 		} catch(EntityExistsException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
 	
 	@DeleteMapping("{id}")
-	public @ResponseBody ResponseEntity<String> deleteSubject(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<String> deleteProfessor(@PathVariable Long id) {
 		try {
-			subjectService.deleteSubject(id);
+			professorService.deleteProfessor(id);
 			return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted " + id);
 		} catch(InvalidEntityException e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.OK).body(e.getMessage());
 		}
 	}
 	
 	@PutMapping()
-	public @ResponseBody ResponseEntity<Object> editSubject(@RequestBody SubjectDto subjectDto) {
+	public @ResponseBody ResponseEntity<Object> editProfessor(@RequestBody ProfessorDto professorDto) {
 		try {
-			SubjectDto entity = subjectService.updateSubject(subjectDto);
+			ProfessorDto entity = professorService.updateProfessor(professorDto);
 			return ResponseEntity.status(HttpStatus.OK).body(entity + " successfully updated!");
 		} catch(InvalidEntityException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

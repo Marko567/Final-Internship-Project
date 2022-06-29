@@ -31,7 +31,7 @@ public class Subject implements Serializable {
 	@Column
 	private Integer noOfEsp;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "semester")
 	private SemesterEntity semester;
 
