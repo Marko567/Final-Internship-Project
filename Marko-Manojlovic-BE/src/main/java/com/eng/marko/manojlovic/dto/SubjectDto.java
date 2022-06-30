@@ -14,6 +14,8 @@ public class SubjectDto {
 	private Integer noOfEsp;
 
 	private SemesterEntity semester;
+	//private Integer semesterEntityId;
+	//private String semesterName;
 
 	public SubjectDto() {
 		super();

@@ -3,7 +3,7 @@ package com.eng.marko.manojlovic.service;
 import java.util.List;
 import java.util.Optional;
 
-//import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Page;
 
 import com.eng.marko.manojlovic.dto.StudentDto;
 //import com.eng.marko.manojlovic.entity.Student;
@@ -14,7 +14,7 @@ import com.eng.marko.manojlovic.exception.InvalidEntityException;
 public interface StudentService {
 	List<StudentDto> findAllStudents();
     
-    //Page<StudentDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
+    Page<StudentDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
 
    // List<StudentDto> findOnlySomeStudents(int number);
 

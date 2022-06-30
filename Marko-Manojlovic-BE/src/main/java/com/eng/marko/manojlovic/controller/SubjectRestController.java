@@ -32,7 +32,8 @@ public class SubjectRestController {
 	
 	@GetMapping(path="all")
 	public @ResponseBody ResponseEntity<List<SubjectDto>> findAll() {
-		return ResponseEntity.ok(subjectService.findAllSubjects());
+		List<SubjectDto> subjectDtos = subjectService.findAllSubjects();
+		return ResponseEntity.ok(subjectDtos);
 	}
 	
 	@GetMapping(path="{id}")

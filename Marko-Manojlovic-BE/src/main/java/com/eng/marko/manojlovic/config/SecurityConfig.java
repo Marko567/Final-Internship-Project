@@ -19,11 +19,37 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  
+	@Autowired
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN")
+//                .and()
+//                .withUser("user").password("user").roles("USER");
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+    
+	@SuppressWarnings("deprecation")
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.cors().configurationSource(corsConfigurationSource());
+        http.csrf().disable().authorizeRequests()
+        		.antMatchers("/auth/login/**").permitAll()
+                .antMatchers("/manufacturers/**").authenticated()
+                .antMatchers("/cities/**").authenticated()
+                .and()
+                .httpBasic();
     }
     
     @Bean

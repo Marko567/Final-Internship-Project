@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +36,6 @@ public class StudentServiceImpl implements StudentService {
 	public List<StudentDto> findAllStudents() {
 		List<Student> students = studentRepository.findAll();
 		return students.stream().map(student -> {
-			System.out.println("studentMapper.toDto(student) " + studentMapper.toDto(student));
 			return studentMapper.toDto(student);
 		}).collect(Collectors.toList());
 	}
@@ -73,5 +76,16 @@ public class StudentServiceImpl implements StudentService {
 			return studentMapper.toDto(studentRepository.save(studentMapper.toEntity(student)));
 		}
 		throw new InvalidEntityException(student, "Takav student ne postoji!");
+	}
+
+
+	@Override
+	public Page<StudentDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder) {
+		Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
+
+		Page<StudentDto> entites = studentRepository.findAll(pageable).map(studentMapper::toDto);
+		return entites;
 	}
 }

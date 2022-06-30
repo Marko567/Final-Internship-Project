@@ -1,18 +1,39 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Student } from '../models';
+import { PageDto, PageRequest, Student } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient) {
 
   }
   public getStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(`${environment.serverUrl}/students/all`);
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+
+    return this.httpClient.get<Student[]>(`${environment.serverUrl}/students/all`, { headers });
+  }
+
+  getByPage(pageRequest: PageRequest) {
+    const params = new HttpParams()
+      .set('pageNo', pageRequest.pageNo - 1)
+      .set('pageSize', pageRequest.pageSize)
+      .set('sortBy', pageRequest.sortBy)
+      .set('sortOrder', pageRequest.sortOrder);
+
+    return this.httpClient.get<PageDto<Student>>(`${environment.serverUrl}/students/filter`, {params});
+  }
+
+  deleteStudent(student: Student) {
+    return this.httpClient.delete<string>(`${environment.serverUrl}/students/${student.id}`, {responseType: 'text' as 'json'});
+  }
+
+  getById(studentId: number) {
+    return this.httpClient.get<Student>(`${environment.serverUrl}/cities/${studentId}`);
   }
 }

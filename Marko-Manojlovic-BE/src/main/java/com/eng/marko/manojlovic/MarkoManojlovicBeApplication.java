@@ -7,13 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 public class MarkoManojlovicBeApplication {
-	@RequestMapping("/hello")
-	   @ResponseBody
-	   void home() {
-		  System.out.println("call by angular");
-	     
-	   }
-	
 	public static void main(String[] args) {
 		SpringApplication.run(MarkoManojlovicBeApplication.class, args);
 	}

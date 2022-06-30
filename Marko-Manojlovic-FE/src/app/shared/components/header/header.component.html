@@ -1,0 +1,22 @@
+<ul ngbNav  #nav="ngbNav" class="app-nav-bar flex-no-wrap justify-content-between" >
+  <li ngbNavItem *ngIf="userLoginData.isUserLogged" >
+    <a ngbNavLink routerLink="/student">Student</a>
+  </li>
+  <li ngbNavItem *ngIf="userLoginData.isUserLogged" >
+    <a ngbNavLink routerLink="/manufacturer">Manufacturer</a>
+  </li>
+  <li ngbNavItem class="flex-grow-1 flex-shrink-1 text-center" *ngIf="userLoginData.isUserLogged">
+    <a  ngbNavLink routerLink="/home">Home</a>
+  </li>
+  <li ngbNavItem>
+
+    <div ngbDropdown class="d-inline-block mx-2" *ngIf="userLoginData.isUserLogged">
+      <a  ngbNavLink ngbDropdownToggle id="dropdownUser" >{{userLoginData.userLoginData?.firstname}}</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownUser">
+        <button ngbDropdownItem   ><bi name="gear"></bi>Settings</button>
+        <button ngbDropdownItem (click)="logout()" >Logout</button>
+      </div>
+    </div>
+  </li>
+
+</ul>
