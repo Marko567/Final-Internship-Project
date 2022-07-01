@@ -30,7 +30,12 @@ export class StudentService {
   }
 
   deleteStudent(student: Student) {
-    return this.httpClient.delete<string>(`${environment.serverUrl}/students/${student.id}`, {responseType: 'text' as 'json'});
+    return this.httpClient.delete<string>(`${environment.serverUrl}/students/${student.studentId}`, {responseType: 'text' as 'json'});
+  }
+
+  updateStudent(student: Student) {
+    console.log("STUDENT PREd ODLAZZAK KOD SERVERA: ", student);
+    return this.httpClient.put(`${environment.serverUrl}/students`, student);
   }
 
   getById(studentId: number) {

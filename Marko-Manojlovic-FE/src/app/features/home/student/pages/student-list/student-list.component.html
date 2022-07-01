@@ -19,17 +19,17 @@
   <tbody>
     <tr *ngFor="let student of students; let i = index" >
       <td> {{i + 1}}</td>
-      <td>{{student.id}}</td>
+      <td>{{student.studentId}}</td>
       <td>{{student.firstname}}</td>
       <td>{{student.lastname}}</td>
       <td>{{student.indexYear}}</td>
       <td>{{student.indexNumber}}</td>
       <td>{{student.email}}</td>
       <td>{{student.address}}</td>
-      <td>{{student.city}}</td>
+      <td>{{student.postalCode.name}}</td>
       <td>{{student.currentYearOfStudy}}</td>
       <td>
-        <button class="btn btn-outline-success"  [routerLink]="['/student/student-form', student.id]" [queryParams]="{'pageNo': pageInfo.pageNo, 'pageSize': pageInfo.pageSize}" ><bi name="pencil"></bi>Edit</button>
+        <button class="btn btn-outline-success"  (click)="onEditStudent(student)" ><bi name="pencil"></bi>Edit</button>
         <button class="btn btn-outline-success" >Details</button>
         <button type="button" (click)="onDelete(student)" class="btn btn-outline-success">Delete</button>
       </td>
@@ -59,3 +59,4 @@
         aria-label="Default pagination">
   </ngb-pagination>
 </div>
+{{ students | json }}

@@ -12,18 +12,35 @@ import javax.persistence.Table;
 @Table
 public class SemesterEntity implements Serializable {
 	private static final long serialVersionUID = 3645852034473462391L;
-	
+
 	@Id
 	@Column
 	private Integer semesterEntityId;
 	@Column
 	private String semesterName;
 
-	public SemesterEntity() {}
+	public SemesterEntity() {
+	}
 
 	public SemesterEntity(Integer semesterEntityId, String semesterName) {
 		super();
 		this.semesterEntityId = semesterEntityId;
+		this.semesterName = semesterName;
+	}
+
+	public Integer getSemesterEntityId() {
+		return semesterEntityId;
+	}
+
+	public void setSemesterEntityId(Integer semesterEntityId) {
+		this.semesterEntityId = semesterEntityId;
+	}
+
+	public String getSemesterName() {
+		return semesterName;
+	}
+
+	public void setSemesterName(String semesterName) {
 		this.semesterName = semesterName;
 	}
 

@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { PageDto, PageRequest, Student } from 'src/app/core/models';
+import { PageRequest, Student } from 'src/app/core/models';
 import { StudentService } from 'src/app/core/services/student.service';
+import { EditStudentComponent } from 'src/app/shared/components/edit-student/edit-student.component';
 
 @Component({
   selector: 'app-student-list',
@@ -14,11 +16,11 @@ export class StudentListComponent implements OnInit, OnDestroy {
   students?: Student[];
   subscriptions = new Subscription();
 
-  pageInfo: PageRequest = {pageNo: 1, pageSize:2, totalItems: 10, sortBy: 'name', sortOrder:'asc'}
+  pageInfo: PageRequest = {pageNo: 1, pageSize:2, totalItems: 10, sortBy: 'firstname', sortOrder:'asc'}
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
 
-  constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute) { }
+  constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute, private modalService: NgbModal) { }
 
 
   ngOnDestroy(): void {
@@ -33,7 +35,16 @@ export class StudentListComponent implements OnInit, OnDestroy {
     this.pageInfo.pageNo = 1;
     this.loadStudents();
   }
+  onEditStudent(student: Student) {
+    const modalRef = this.modalService.open(EditStudentComponent);
+    modalRef.componentInstance.student = student;
 
+    modalRef.result.then((yes) => {
+      console.log('Yes click');
+      this.loadStudents();
+    },
+    (cancel) => {console.log("cancel click")})
+  }
   onDelete(student: Student) {
 
   }

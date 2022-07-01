@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Edit Student</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="studentForm" *ngIf="studentForm" (ngSubmit)="onSubmit()">
+      <div class="col-md-8 col-lg-6">
+
+        <div class="from-group">
+          <input id="id" class="form-control" placeholder="Firstname"  type="hidden" formControlName="studentId" />
+        </div>
+
+        <div class="from-group">
+          <label for="firstname">Firstname: </label>
+          <input id="firstname" class="form-control" placeholder="Firstname"  type="text" formControlName="firstname" />
+        </div>
+
+        <div class="from-group">
+          <label for="lastname">Lastname: </label>
+          <input id="lastname" class="form-control" placeholder="Lastname"  type="text" formControlName="lastname" />
+        </div>
+
+        <div class="from-group">
+          <label for="indexNumber">IndexNumber: </label>
+          <input id="indexNumber" class="form-control" placeholder="Index Number"  type="text" formControlName="indexNumber" />
+        </div>
+
+        <div class="from-group">
+          <label for="indexYear">IndexYear: </label>
+          <input id="indexYear" class="form-control" placeholder="Index Year"  type="number" formControlName="indexYear" />
+        </div>
+
+        <div class="from-group">
+          <label for="address">Address: </label>
+          <input id="address" class="form-control" placeholder="Address"  type="text" formControlName="address" />
+        </div>
+
+        <div class="from-group">
+          <label for="email">Email: </label>
+          <input id="email" class="form-control" placeholder="e-mail"  type="text" formControlName="email" />
+        </div>
+
+        <div class="from-group">
+          <label for="currentYearOfStudy">Current Year Of Study:</label>
+          <input id="currentYearOfStudy" class="form-control" placeholder="currentYearOfStudy"  type="number" formControlName="currentYearOfStudy" />
+        </div>
+
+        <div class="from-group">
+          <label for="city">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <select name="city" id="city"  formControlName="city">
+            <option *ngFor="let city of cities" [ngValue]="city.zipCode">{{city.name}}</option>
+          </select>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-outline-dark">Save</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
+        </div>
+        <!-- <div class="d-flex flex-row-reverse mt-2">
+          <button class="btn btn-outline-success" >{{'COMMON.SAVE' | translate }}</button>
+          <button class="btn btn-outline-success" routerLink="/city/city-list" queryParamsHandling="preserve" >{{'COMMON.CANCEL' | translate }}</button>
+        </div> -->
+      </div>
+
+
+
+
+  </form>
+</div>
+{{student | json }}
+<!-- <div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
+</div> -->

@@ -6,11 +6,13 @@ import { NgbDropdownModule, NgbModalModule, NgbNavModule, NgbPaginationModule, N
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { BootstrapSetupIconsModule } from './bootstrap-setup-icons/bootstrap-setup-icons.module';
+import { EditStudentComponent } from './components/edit-student/edit-student.component';
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    EditStudentComponent
   ],
   imports: [
     CommonModule,

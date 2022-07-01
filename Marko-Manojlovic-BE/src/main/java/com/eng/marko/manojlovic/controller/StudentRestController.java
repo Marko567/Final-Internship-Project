@@ -40,7 +40,7 @@ public class StudentRestController {
 	
 	@GetMapping("filter")
 	public ResponseEntity<Page<StudentDto>> findAll(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "name") String sortBy,
+			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "firstname") String sortBy,
 			@RequestParam(defaultValue = "asc") String sortOrder) {
 		return new ResponseEntity<Page<StudentDto>>(studentService.findAll(pageNo, pageSize, sortBy, sortOrder), new HttpHeaders(),
 				HttpStatus.OK);
@@ -77,6 +77,7 @@ public class StudentRestController {
 	public @ResponseBody ResponseEntity<Object> editStudent(@RequestBody StudentDto studentDto) {
 		try {
 			StudentDto entity = studentService.updateStudent(studentDto);
+			
 			return ResponseEntity.status(HttpStatus.OK).body(entity + " successfully updated!");
 		} catch(InvalidEntityException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

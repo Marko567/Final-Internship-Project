@@ -2,7 +2,7 @@ package com.eng.marko.manojlovic.dto;
 
 import java.util.Objects;
 
-import com.eng.marko.manojlovic.entity.SemesterEntity;
+//import com.eng.marko.manojlovic.entity.SemesterEntity;
 
 public class SubjectDto {
 	private Long subjectId;
@@ -13,29 +13,33 @@ public class SubjectDto {
 
 	private Integer noOfEsp;
 
-	private SemesterEntity semester;
-	//private Integer semesterEntityId;
-	//private String semesterName;
+	//private SemesterEntity semester;
+	private Integer semesterEntityId;
+	private String semesterName;
 
 	public SubjectDto() {
 		super();
 	}
 	
-	public SubjectDto(String name, String description, Integer noOfEsp, SemesterEntity semester) {
+	public SubjectDto(String name, String description, Integer noOfEsp, Integer semesterEntityId, String semesterName) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.noOfEsp = noOfEsp;
-		this.semester = semester;
+		this.semesterEntityId = semesterEntityId;
+		this.semesterName = semesterName;
 	}
 
-	public SubjectDto(Long subjectId, String name, String description, Integer noOfEsp, SemesterEntity semester) {
+
+	public SubjectDto(Long subjectId, String name, String description, Integer noOfEsp, Integer semesterEntityId,
+			String semesterName) {
 		super();
 		this.subjectId = subjectId;
 		this.name = name;
 		this.description = description;
 		this.noOfEsp = noOfEsp;
-		this.semester = semester;
+		this.semesterEntityId = semesterEntityId;
+		this.semesterName = semesterName;
 	}
 
 	public Long getSubjectId() {
@@ -70,17 +74,25 @@ public class SubjectDto {
 		this.noOfEsp = noOfEsp;
 	}
 
-	public SemesterEntity getSemester() {
-		return semester;
+	public Integer getSemesterEntityId() {
+		return semesterEntityId;
 	}
 
-	public void setSemester(SemesterEntity semester) {
-		this.semester = semester;
+	public void setSemesterEntityId(Integer semesterEntityId) {
+		this.semesterEntityId = semesterEntityId;
+	}
+
+	public String getSemesterName() {
+		return semesterName;
+	}
+
+	public void setSemesterName(String semesterName) {
+		this.semesterName = semesterName;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, name, noOfEsp, semester, subjectId);
+		return Objects.hash(description, name, noOfEsp, semesterEntityId, semesterName, subjectId);
 	}
 
 	@Override
@@ -93,14 +105,13 @@ public class SubjectDto {
 			return false;
 		SubjectDto other = (SubjectDto) obj;
 		return Objects.equals(description, other.description) && Objects.equals(name, other.name)
-				&& Objects.equals(noOfEsp, other.noOfEsp) && Objects.equals(semester, other.semester)
-				&& Objects.equals(subjectId, other.subjectId);
+				&& Objects.equals(noOfEsp, other.noOfEsp) && Objects.equals(semesterEntityId, other.semesterEntityId)
+				&& Objects.equals(semesterName, other.semesterName) && Objects.equals(subjectId, other.subjectId);
 	}
 
 	@Override
 	public String toString() {
 		return "SubjectDto [subjectId=" + subjectId + ", name=" + name + ", description=" + description + ", noOfEsp="
-				+ noOfEsp + ", semester=" + semester + "]";
+				+ noOfEsp + ", semesterEntityId=" + semesterEntityId + ", semesterName=" + semesterName + "]";
 	}
-
 }
