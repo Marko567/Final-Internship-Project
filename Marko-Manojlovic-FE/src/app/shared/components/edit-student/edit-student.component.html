@@ -9,7 +9,7 @@
       <div class="col-md-8 col-lg-6">
 
         <div class="from-group">
-          <input id="id" class="form-control" placeholder="Firstname"  type="hidden" formControlName="studentId" />
+          <input id="id" class="form-control" type="hidden" formControlName="studentId" />
         </div>
 
         <div class="from-group">
@@ -48,9 +48,10 @@
         </div>
 
         <div class="from-group">
-          <label for="city">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-          <select name="city" id="city"  formControlName="city">
-            <option *ngFor="let city of cities" [ngValue]="city.zipCode">{{city.name}}</option>
+          <label for="postalCode">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <select name="postalCode" id="postalCode"  formControlName="postalCode">
+            <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+            <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
           </select>
         </div>
         <div class="card-footer">

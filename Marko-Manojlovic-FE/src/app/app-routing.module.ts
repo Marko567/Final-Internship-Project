@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from './core/enums';
+import { SaveNewStudentComponent } from './features/home/student/pages/save-new-student/save-new-student.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [

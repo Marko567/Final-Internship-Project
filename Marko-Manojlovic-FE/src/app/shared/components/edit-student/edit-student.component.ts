@@ -43,7 +43,7 @@ export class EditStudentComponent implements OnInit, OnDestroy {
       indexYear: [student?.indexYear],
       email: [student?.email],
       address: [student?.address],
-      city: [student?.postalCode.zipCode, Validators.required],
+      postalCode: [student?.postalCode.zipCode, Validators.required],
       currentYearOfStudy: [student?.currentYearOfStudy, Validators.required]
     })
   }
@@ -52,8 +52,15 @@ export class EditStudentComponent implements OnInit, OnDestroy {
     if(this.studentForm?.invalid) {
       return;
     }
-    const formData = this.studentForm?.getRawValue();
-    this.studentService.updateStudent(formData).subscribe(x => {this.modal.close('Yes')},
-    (error) => {console.log("error:", error)})
+    const formData = this.studentForm?.getRawValue() as Student;
+    this.studentService.updateStudent(formData).subscribe({
+      next: response => {
+        this.modal.close('yes');
+        console.log("RESPONSE:", response);
+      },
+      error: error => {
+        console.log("Error: ", error);
+      }
+    });
   }
 }

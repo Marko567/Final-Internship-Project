@@ -34,11 +34,14 @@ export class StudentService {
   }
 
   updateStudent(student: Student) {
-    console.log("STUDENT PREd ODLAZZAK KOD SERVERA: ", student);
-    return this.httpClient.put(`${environment.serverUrl}/students`, student);
+    //console.log("Student pred odlazak na server: ", student);
+    return this.httpClient.put<Student>(`${environment.serverUrl}/students`, student);
   }
 
   getById(studentId: number) {
     return this.httpClient.get<Student>(`${environment.serverUrl}/cities/${studentId}`);
+  }
+  saveStudent(student: Student) {
+    return this.httpClient.post<Student>(`${environment.serverUrl}/students`, student);
   }
 }

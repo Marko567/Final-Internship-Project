@@ -78,7 +78,7 @@ public class StudentRestController {
 		try {
 			StudentDto entity = studentService.updateStudent(studentDto);
 			
-			return ResponseEntity.status(HttpStatus.OK).body(entity + " successfully updated!");
+			return ResponseEntity.status(HttpStatus.OK).body(entity); //+ " successfully updated!"
 		} catch(InvalidEntityException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

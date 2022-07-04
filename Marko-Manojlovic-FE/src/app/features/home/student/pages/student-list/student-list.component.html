@@ -1,5 +1,5 @@
 <h3>Student List</h3>
-
+<a routerLink="/student/add-new-student">Add New Student</a>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,8 +9,6 @@
       <th scope="col">Lastname</th>
       <th scope="col">Index Number</th>
       <th scope="col">Index Year</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">Address</th>
       <th scope="col">City</th>
       <th scope="col">Current Year of Study</th>
       <th scope="col">Actions</th>
@@ -24,13 +22,11 @@
       <td>{{student.lastname}}</td>
       <td>{{student.indexYear}}</td>
       <td>{{student.indexNumber}}</td>
-      <td>{{student.email}}</td>
-      <td>{{student.address}}</td>
       <td>{{student.postalCode.name}}</td>
       <td>{{student.currentYearOfStudy}}</td>
       <td>
         <button class="btn btn-outline-success"  (click)="onEditStudent(student)" ><bi name="pencil"></bi>Edit</button>
-        <button class="btn btn-outline-success" >Details</button>
+        <button class="btn btn-outline-success" (click)="onDetails(student)">Details</button>
         <button type="button" (click)="onDelete(student)" class="btn btn-outline-success">Delete</button>
       </td>
     </tr>
@@ -45,10 +41,6 @@
     (change)="onPageSizeChange()"
     [(ngModel)]="pageInfo.pageSize" >
     <option *ngFor="let size of availablePageSizes" [ngValue]="size">{{size}}</option>
-    <!-- <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="15">15</option>
-    <option value="20">20</option> -->
   </select>
   <ngb-pagination
         [pageSize]="pageInfo.pageSize"
@@ -59,4 +51,3 @@
         aria-label="Default pagination">
   </ngb-pagination>
 </div>
-{{ students | json }}

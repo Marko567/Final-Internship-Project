@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { BootstrapSetupIconsModule } from './bootstrap-setup-icons/bootstrap-setup-icons.module';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
+import { DetailsStudentComponent } from './components/details-student/details-student.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    DetailsStudentComponent
   ],
   imports: [
     CommonModule,

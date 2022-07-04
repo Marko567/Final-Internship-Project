@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { PageRequest, Student } from 'src/app/core/models';
 import { StudentService } from 'src/app/core/services/student.service';
+import { DetailsStudentComponent } from 'src/app/shared/components/details-student/details-student.component';
 import { EditStudentComponent } from 'src/app/shared/components/edit-student/edit-student.component';
 
 @Component({
@@ -41,12 +42,26 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
     modalRef.result.then((yes) => {
       console.log('Yes click');
+      console.log("YES:", yes);
       this.loadStudents();
     },
     (cancel) => {console.log("cancel click")})
   }
-  onDelete(student: Student) {
+  onDetails(student: Student) {
+    const modalRef = this.modalService.open(DetailsStudentComponent);
+    modalRef.componentInstance.student = student;
 
+  }
+  onDelete(student: Student) {
+    this.httpStudent.deleteStudent(student).subscribe({
+      next: response => {
+        this.loadStudents();
+        console.log("Student ", student.studentId, " successfully deleted!");
+      },
+      error: error => {
+        console.log("error", error);
+      }
+    })
   }
   ngOnInit(): void {
     const pageNoParam = Number(this.activeRoute.snapshot.queryParamMap.get('pageNo'));
