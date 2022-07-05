@@ -34,7 +34,11 @@ public class Exam {
 	
 	@Column
 	private Date date;
-
+	
+	public Exam() {
+		super();
+	}
+	
 	public Exam(ExamId id, ExamPeriod examPeriod, Subject subject, Professor professor, Date date) {
 		super();
 		this.id = new ExamId(examPeriod.getId(), subject.getSubjectId(), professor.getProfessorId());

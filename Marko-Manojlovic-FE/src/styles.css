@@ -8,3 +8,10 @@ bi {
 .form-select.small {
   width: 4rem;
 }
+.add-new-button {
+  font-size: 1rem;
+  padding: 10px;
+  background-color: rgb(199, 209, 208);
+  border-radius: 10px;
+  text-decoration: none;
+}

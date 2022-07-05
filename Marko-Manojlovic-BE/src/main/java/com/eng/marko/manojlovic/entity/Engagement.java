@@ -23,9 +23,19 @@ public class Engagement {
 	@JoinColumn(name="subject_id")
 	private Subject subject;
 	
+	
+	public Engagement() {
+		super();
+	}
+
 	public Engagement(Professor professor, Subject subject) {
 		this.id = new EngagementId(professor.getProfessorId(), subject.getSubjectId());
 		this.professor = professor;
 		this.subject = subject;
+	}
+
+	@Override
+	public String toString() {
+		return "Engagement [id=" + id + ", professor=" + professor.getFirstname() + ", subject=" + subject.getName() + "]";
 	}
 }

@@ -17,6 +17,9 @@ public class ExamId implements Serializable {
 	@Column
 	private Long professorId;
 	
+	public ExamId() {
+		super();
+	}
 	
 	public ExamId(Long examPeriodId, Long subjectId, Long professorId) {
 		super();

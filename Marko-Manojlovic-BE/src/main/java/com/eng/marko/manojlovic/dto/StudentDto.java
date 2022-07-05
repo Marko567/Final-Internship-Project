@@ -17,7 +17,7 @@ public class StudentDto {
 	private City postalCode;
 
 	private Integer currentYearOfStudy;
-
+	
 	public StudentDto() {
 		super();
 	}

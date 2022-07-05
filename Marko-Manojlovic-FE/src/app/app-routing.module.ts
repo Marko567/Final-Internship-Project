@@ -16,6 +16,11 @@ const routes: Routes = [
     loadChildren: () => import('./features/home/student/student.module').then((m) => m.StudentModule),
     data: { roles: [UserRoles.ROLE_ADMIN]}
   },
+  {
+    path: 'professor',
+    loadChildren: () => import('./features/home/professor/professor.module').then((m) => m.ProfessorModule),
+    data: { roles: [UserRoles.ROLE_ADMIN]}
+  },
   {path: '', pathMatch:"full", redirectTo:'/login'}
 ];
 

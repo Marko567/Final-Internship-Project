@@ -5,11 +5,11 @@
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="studentForm" *ngIf="studentForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="professorForm" *ngIf="professorForm" (ngSubmit)="onSubmit()">
       <div class="col-md-8 col-lg-6">
 
         <div class="from-group">
-          <input id="id" class="form-control" type="hidden" formControlName="studentId" />
+          <input id="id" class="form-control" type="hidden" formControlName="professorId" />
         </div>
 
         <div class="from-group">
@@ -23,28 +23,13 @@
         </div>
 
         <div class="from-group">
-          <label for="indexNumber">IndexNumber: </label>
-          <input id="indexNumber" class="form-control" placeholder="Index Number"  type="text" formControlName="indexNumber" />
-        </div>
-
-        <div class="from-group">
-          <label for="indexYear">IndexYear: </label>
-          <input id="indexYear" class="form-control" placeholder="Index Year"  type="number" formControlName="indexYear" />
-        </div>
-
-        <div class="from-group">
-          <label for="address">Address: </label>
-          <input id="address" class="form-control" placeholder="Address"  type="text" formControlName="address" />
-        </div>
-
-        <div class="from-group">
           <label for="email">Email: </label>
           <input id="email" class="form-control" placeholder="e-mail"  type="text" formControlName="email" />
         </div>
 
         <div class="from-group">
-          <label for="currentYearOfStudy">Current Year Of Study:</label>
-          <input id="currentYearOfStudy" class="form-control" placeholder="currentYearOfStudy"  type="number" formControlName="currentYearOfStudy" />
+          <label for="address">Address: </label>
+          <input id="address" class="form-control" placeholder="Address"  type="text" formControlName="address" />
         </div>
 
         <div class="from-group">
@@ -54,6 +39,23 @@
             <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
           </select>
         </div>
+        <div class="from-group">
+          <label for="title">Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <select name="title" id="title"  formControlName="title">
+            <option *ngFor="let title of titles" [ngValue]="title">{{title.name}}</option>
+            <!--ima li boljeg nacina od ovog da postavljam ngValue da bude title, kad postavim samo id imam gresku ?-->
+          </select>
+        </div>
+        <div class="from-group">
+          <label for="phone">Phone: </label>
+          <input id="phone" class="form-control" placeholder="Phone"  type="text" formControlName="phone" />
+        </div>
+
+        <div class="from-group">
+          <label for="reelectionDate">Reelection Date: </label>
+          <input id="reelectionDate" class="form-control" placeholder="Reelection Date"  type="date" formControlName="reelectionDate" />
+        </div>
+
         <div class="card-footer">
           <button type="submit" class="btn btn-outline-dark">Save</button>
           <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>

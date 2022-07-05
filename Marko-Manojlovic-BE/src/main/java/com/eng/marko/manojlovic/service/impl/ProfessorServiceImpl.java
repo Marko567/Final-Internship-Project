@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +36,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public List<ProfessorDto> findAllProfessors() {
 		List<Professor> professors = professorRepository.findAll();
 		return professors.stream().map(professor -> {
+			System.out.println("PROFESSOR: " + professor+"\n");
 			return professorMapper.toDto(professor);
 		}).collect(Collectors.toList());
 	}
@@ -66,5 +71,15 @@ public class ProfessorServiceImpl implements ProfessorService {
 			return professorMapper.toDto(professorRepository.save(professorMapper.toEntity(professor)));
 		}
 		throw new InvalidEntityException(professor, "Takav professor ne postoji!");
+	}
+	
+	@Override
+	public Page<ProfessorDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder) {
+		Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
+
+		Page<ProfessorDto> entites = professorRepository.findAll(pageable).map(professorMapper::toDto);
+		return entites;
 	}
 }

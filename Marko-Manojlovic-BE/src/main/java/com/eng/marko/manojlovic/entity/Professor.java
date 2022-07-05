@@ -2,16 +2,20 @@ package com.eng.marko.manojlovic.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -45,12 +49,15 @@ public class Professor implements Serializable {
 	@ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "title", nullable=false)
 	private Title title;
-
+	
+	@OneToMany(mappedBy="professor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Engagement> engagements = new HashSet<>();
+	
 	public Professor() {
 	}
 	
 	public Professor(String firstname, String lastname, String email, String address, City postalCode, String phone,
-			Date reelectionDate, Title title) {
+			Date reelectionDate, Title title, Set<Engagement> engagements) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -60,10 +67,11 @@ public class Professor implements Serializable {
 		this.phone = phone;
 		this.reelectionDate = reelectionDate;
 		this.title = title;
+		this.engagements = engagements;
 	}
 
 	public Professor(Long professorId, String firstname, String lastname, String email, String address, City postalCode,
-			String phone, Date reelectionDate, Title title) {
+			String phone, Date reelectionDate, Title title, Set<Engagement> engagements) {
 		super();
 		this.professorId = professorId;
 		this.firstname = firstname;
@@ -74,6 +82,7 @@ public class Professor implements Serializable {
 		this.phone = phone;
 		this.reelectionDate = reelectionDate;
 		this.title = title;
+		this.engagements = engagements;
 	}
 
 	public Long getProfessorId() {
@@ -147,6 +156,14 @@ public class Professor implements Serializable {
 	public void setTitle(Title title) {
 		this.title = title;
 	}
+	
+	public Set<Engagement> getEngagements() {
+		return engagements;
+	}
+
+	public void setEngagements(Set<Engagement> engagements) {
+		this.engagements = engagements;
+	}
 
 	@Override
 	public int hashCode() {
@@ -173,7 +190,7 @@ public class Professor implements Serializable {
 	public String toString() {
 		return "Professor [professorId=" + professorId + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", address=" + address + ", postalCode=" + postalCode + ", phone=" + phone
-				+ ", reelectionDate=" + reelectionDate + ", title=" + title + "]";
+				+ ", reelectionDate=" + reelectionDate + ", title=" + title + ", engagements=" + engagements + "]";
 	}
 
 }

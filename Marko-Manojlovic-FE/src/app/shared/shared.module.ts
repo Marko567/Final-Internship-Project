@@ -8,13 +8,17 @@ import { HeaderComponent } from './components/header/header.component';
 import { BootstrapSetupIconsModule } from './bootstrap-setup-icons/bootstrap-setup-icons.module';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
 import { DetailsStudentComponent } from './components/details-student/details-student.component';
+import { DetailsProfessorComponent } from './components/details-professor/details-professor.component';
+import { EditProfessorComponent } from './components/edit-professor/edit-professor.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     EditStudentComponent,
-    DetailsStudentComponent
+    DetailsStudentComponent,
+    DetailsProfessorComponent,
+    EditProfessorComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,7 @@ import { DetailsStudentComponent } from './components/details-student/details-st
     NgbNavModule,
     NgbDropdownModule,
 
-    BootstrapSetupIconsModule
+    BootstrapSetupIconsModule,
   ], exports:[
     CommonModule,
     HttpClientModule,
@@ -46,6 +50,7 @@ import { DetailsStudentComponent } from './components/details-student/details-st
     NgbDropdownModule,
 
     HeaderComponent,
+    DetailsProfessorComponent,
     BootstrapSetupIconsModule
   ]
 })

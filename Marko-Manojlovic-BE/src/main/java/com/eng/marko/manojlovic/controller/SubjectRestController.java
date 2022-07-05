@@ -67,7 +67,7 @@ public class SubjectRestController {
 	public @ResponseBody ResponseEntity<Object> editSubject(@RequestBody SubjectDto subjectDto) {
 		try {
 			SubjectDto entity = subjectService.updateSubject(subjectDto);
-			return ResponseEntity.status(HttpStatus.OK).body(entity + " successfully updated!");
+			return ResponseEntity.status(HttpStatus.OK).body(entity);
 		} catch(InvalidEntityException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

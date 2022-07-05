@@ -1,16 +1,20 @@
 package com.eng.marko.manojlovic.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,8 +38,12 @@ public class Subject implements Serializable {
 	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "semester")
 	private SemesterEntity semester;
-
+	
+	@OneToMany(mappedBy="subject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Engagement> engagements = new HashSet<>();
+	
 	public Subject() {
+		super();
 	}
 
 	public Subject(String name, String description, Integer noOfEsp, SemesterEntity semester) {
@@ -93,6 +101,14 @@ public class Subject implements Serializable {
 
 	public void setSemester(SemesterEntity semester) {
 		this.semester = semester;
+	}
+	
+	public Set<Engagement> getEngagements() {
+		return engagements;
+	}
+
+	public void setEngagements(Set<Engagement> engagements) {
+		this.engagements = engagements;
 	}
 
 	@Override

@@ -2,9 +2,10 @@ package com.eng.marko.manojlovic.dto;
 
 import java.sql.Date;
 import java.util.Objects;
-
+import java.util.Set;
 
 import com.eng.marko.manojlovic.entity.City;
+import com.eng.marko.manojlovic.entity.Engagement;
 import com.eng.marko.manojlovic.entity.Title;
 
 public class ProfessorDto {
@@ -24,12 +25,14 @@ public class ProfessorDto {
 	private Date reelectionDate;
 
 	private Title title;
+	
+	private Set<Engagement> engagements;
 
 	public ProfessorDto() {
 	}
 
 	public ProfessorDto(Long professorId, String firstname, String lastname, String email, String address,
-			City postalCode, String phone, Date reelectionDate, Title title) {
+			City postalCode, String phone, Date reelectionDate, Title title, Set<Engagement> engagements) {
 		super();
 		this.professorId = professorId;
 		this.firstname = firstname;
@@ -40,10 +43,11 @@ public class ProfessorDto {
 		this.phone = phone;
 		this.reelectionDate = reelectionDate;
 		this.title = title;
+		this.engagements = engagements;
 	}
 	
 	public ProfessorDto(String firstname, String lastname, String email, String address, City postalCode, String phone,
-			Date reelectionDate, Title title) {
+			Date reelectionDate, Title title, Set<Engagement> engagements ) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -53,6 +57,7 @@ public class ProfessorDto {
 		this.phone = phone;
 		this.reelectionDate = reelectionDate;
 		this.title = title;
+		this.engagements = engagements;
 	}
 
 	public Long getProfessorId() {
@@ -127,6 +132,14 @@ public class ProfessorDto {
 		this.title = title;
 	}
 
+	public Set<Engagement> getEngagements() {
+		return engagements;
+	}
+
+	public void setEngagements(Set<Engagement> engagements) {
+		this.engagements = engagements;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(address, email, firstname, lastname, phone, postalCode, professorId, reelectionDate, title);
@@ -152,7 +165,7 @@ public class ProfessorDto {
 	public String toString() {
 		return "ProfessorDto [professorId=" + professorId + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", address=" + address + ", postalCode=" + postalCode + ", phone=" + phone
-				+ ", reelectionDate=" + reelectionDate + ", title=" + title + "]";
+				+ ", reelectionDate=" + reelectionDate + ", title=" + title + ", engagements=" + engagements + "]";
 	}
 
 }

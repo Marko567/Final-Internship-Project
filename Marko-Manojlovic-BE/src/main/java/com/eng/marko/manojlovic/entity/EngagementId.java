@@ -10,6 +10,10 @@ import javax.persistence.Embeddable;
 public class EngagementId implements Serializable {
 	private static final long serialVersionUID = 6613195630917664168L;
 	
+	public EngagementId() {
+		super();
+	}
+	
 	public EngagementId(Long professorId, Long subjectId) {
 		super();
 		this.professorId = professorId;
