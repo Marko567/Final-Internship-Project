@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +70,16 @@ public class SubjectServiceImpl implements SubjectService {
 			return subjectMapper.toDto(subjectRepository.save(subjectMapper.toEntity(subject)));
 		}
 		throw new InvalidEntityException(subject, "Takav predmet ne postoji");
+	}
+
+	@Override
+	public Page<SubjectDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder) {
+		Sort.Direction direction = "asc".equalsIgnoreCase(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC;
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(direction, sortBy));
+
+		Page<SubjectDto> entites = subjectRepository.findAll(pageable).map(subjectMapper::toDto);
+		return entites;
 	}
 
 }

@@ -65,14 +65,22 @@ export class SaveNewProfessorComponent implements OnInit {
   buildForm() {
     this.professorForm = this.fb.group({
       professorId: [''],
-      firstname: ['', Validators.required],
-      lastname: [''],
-      email: [''],
-      address: [''],
+      firstname: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', Validators.email],
+      address: ['', Validators.minLength(3)],
       postalCode: ['', Validators.required],
       title: ['', Validators.required],
-      phone: ['', Validators.required],
-      reelectionDate: ['']
+      phone: ['', Validators.minLength(9)],
+      reelectionDate: ['', Validators.required]
     })
+  }
+
+  hasErrors(componentName: string, errorCode?: string) {
+    console.log("hasErrors(componentName, errorCode):", componentName, errorCode);
+
+    return  (this.professorForm?.get(componentName)?.dirty || this.professorForm?.get(componentName)?.touched) &&
+    ((!errorCode && this.professorForm?.get(componentName)?.errors ) ||
+    (errorCode && this.professorForm?.get(componentName)?.hasError(errorCode)));
   }
 }

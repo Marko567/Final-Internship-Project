@@ -2,7 +2,8 @@ export interface Subject {
   subjectId: number;
   name: string;
   description: string;
-  noOfEspb: number;
+  noOfEsp: number;
+  yearOfStudy: number;
   semesterEntityId: number;
   semesterName: string;
 }

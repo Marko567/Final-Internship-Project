@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Edit Subject</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="subjectForm" *ngIf="subjectForm" (ngSubmit)="onSubmit()">
+      <div class="col-md-8 col-lg-6">
+
+        <div class="from-group">
+          <input id="id" class="form-control" type="hidden" formControlName="subjectId" />
+        </div>
+
+        <div class="from-group">
+          <label for="name">Name: </label>
+          <input id="name" class="form-control" placeholder="name"  type="text" formControlName="name" />
+          <div class="alert alert-danger" *ngIf="hasErrors('name')">
+            <span *ngIf="hasErrors('name','required')" >
+              <small>This field is required</small>
+            </span>
+            <span *ngIf="hasErrors('name','minlength')" >
+              <small>This value must have minimum {{this.subjectForm.get('name')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="from-group">
+          <label for="description">Description: </label>
+          <input id="description" class="form-control" placeholder="Description"  type="text" formControlName="description" />
+        </div>
+
+        <div class="from-group">
+          <label for="noOfEsp">NoOfESPB: </label>
+          <input id="noOfEsp" class="form-control" placeholder="Number of ESP"  type="text" formControlName="noOfEsp" />
+          <div class="alert alert-danger" *ngIf="hasErrors('noOfEsp')">
+            <span *ngIf="hasErrors('noOfEsp','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="from-group">
+          <label for="noOfEsp">Year of Study: </label>
+          <input id="yearOfStudy" class="form-control" placeholder="Year of Study"  type="number" formControlName="yearOfStudy" />
+          <div class="alert alert-danger" *ngIf="hasErrors('yearOfStudy')">
+            <span *ngIf="hasErrors('yearOfStudy','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="from-group">
+          <label for="semesterName">Semester: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <select name="semesterName" id="semesterName"  formControlName="semesterName">
+            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester.semesterName}}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="hasErrors('semesterName')">
+            <span *ngIf="hasErrors('semesterName','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-outline-dark">Save</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
+        </div>
+      </div>
+  </form>
+</div>

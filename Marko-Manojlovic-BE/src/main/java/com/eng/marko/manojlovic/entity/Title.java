@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Title implements Serializable {
 	private static final long serialVersionUID = 6509651417483048541L;
 	@Id
-    @Column
+    @Column(length=7)
 	private Long titleId;
 	@Column
 	private String name;

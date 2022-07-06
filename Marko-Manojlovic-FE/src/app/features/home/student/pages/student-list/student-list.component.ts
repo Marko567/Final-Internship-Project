@@ -29,7 +29,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(pageNo: number) {
-    this.loadStudents;
+    this.loadStudents();
   }
 
   onPageSizeChange() {

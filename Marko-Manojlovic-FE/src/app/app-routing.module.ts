@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from './core/enums';
-import { SaveNewStudentComponent } from './features/home/student/pages/save-new-student/save-new-student.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
@@ -19,6 +18,11 @@ const routes: Routes = [
   {
     path: 'professor',
     loadChildren: () => import('./features/home/professor/professor.module').then((m) => m.ProfessorModule),
+    data: { roles: [UserRoles.ROLE_ADMIN]}
+  },
+  {
+    path: 'subject',
+    loadChildren: () => import('./features/home/subject/subject.module').then((m) => m.SubjectModule),
     data: { roles: [UserRoles.ROLE_ADMIN]}
   },
   {path: '', pathMatch:"full", redirectTo:'/login'}

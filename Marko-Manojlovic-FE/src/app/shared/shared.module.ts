@@ -10,6 +10,8 @@ import { EditStudentComponent } from './components/edit-student/edit-student.com
 import { DetailsStudentComponent } from './components/details-student/details-student.component';
 import { DetailsProfessorComponent } from './components/details-professor/details-professor.component';
 import { EditProfessorComponent } from './components/edit-professor/edit-professor.component';
+import { DetailsSubjectComponent } from './components/details-subject/details-subject.component';
+import { EditSubjectComponent } from './components/edit-subject/edit-subject.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { EditProfessorComponent } from './components/edit-professor/edit-profess
     EditStudentComponent,
     DetailsStudentComponent,
     DetailsProfessorComponent,
-    EditProfessorComponent
+    EditProfessorComponent,
+    DetailsSubjectComponent,
+    EditSubjectComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +55,7 @@ import { EditProfessorComponent } from './components/edit-professor/edit-profess
 
     HeaderComponent,
     DetailsProfessorComponent,
+    DetailsSubjectComponent,
     BootstrapSetupIconsModule
   ]
 })

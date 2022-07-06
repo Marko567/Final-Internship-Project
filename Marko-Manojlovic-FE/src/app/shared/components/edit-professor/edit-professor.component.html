@@ -15,21 +15,45 @@
         <div class="from-group">
           <label for="firstname">Firstname: </label>
           <input id="firstname" class="form-control" placeholder="Firstname"  type="text" formControlName="firstname" />
+          <div class="alert alert-danger" *ngIf="hasErrors('firstname')">
+            <span *ngIf="hasErrors('firstname','required')" >
+              <small>This field is required</small>
+            </span>
+            <span *ngIf="hasErrors('firstname','minlength')" >
+              <small>This value must have minimum {{this.professorForm.get('firstname')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="lastname">Lastname: </label>
           <input id="lastname" class="form-control" placeholder="Lastname"  type="text" formControlName="lastname" />
+          <div class="alert alert-danger" *ngIf="hasErrors('lastname')">
+            <span *ngIf="hasErrors('lastname','required')" >
+              <small>This field is required</small>
+            </span>
+            <span *ngIf="hasErrors('lastname','minlength')" >
+              <small>This value must have minimum {{this.professorForm.get('lastname')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="email">Email: </label>
           <input id="email" class="form-control" placeholder="e-mail"  type="text" formControlName="email" />
+          <span *ngIf="hasErrors('email', 'email')" class="error">
+            <small>Invalid e-mail</small>
+          </span>
         </div>
 
         <div class="from-group">
           <label for="address">Address: </label>
           <input id="address" class="form-control" placeholder="Address"  type="text" formControlName="address" />
+          <div class="alert alert-danger" *ngIf="hasErrors('address')">
+            <span *ngIf="hasErrors('address','minlength')" >
+              <small>This value must have minimum {{this.professorForm.get('address')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
@@ -38,6 +62,11 @@
             <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
             <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
           </select>
+          <div class="alert alert-danger" *ngIf="hasErrors('postalCode')">
+            <span *ngIf="hasErrors('postalCode','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
         </div>
         <div class="from-group">
           <label for="title">Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
@@ -45,15 +74,30 @@
             <option *ngFor="let title of titles" [ngValue]="title">{{title.name}}</option>
             <!--ima li boljeg nacina od ovog da postavljam ngValue da bude title, kad postavim samo id imam gresku ?-->
           </select>
+          <div class="alert alert-danger" *ngIf="hasErrors('title')">
+            <span *ngIf="hasErrors('title','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
         </div>
         <div class="from-group">
           <label for="phone">Phone: </label>
           <input id="phone" class="form-control" placeholder="Phone"  type="text" formControlName="phone" />
+          <div class="alert alert-danger" *ngIf="hasErrors('phone')">
+            <span *ngIf="hasErrors('phone','minlength')" >
+              <small>This value must have minimum {{this.professorForm.get('phone')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="reelectionDate">Reelection Date: </label>
           <input id="reelectionDate" class="form-control" placeholder="Reelection Date"  type="date" formControlName="reelectionDate" />
+          <div class="alert alert-danger" *ngIf="hasErrors('reelectionDate')">
+            <span *ngIf="hasErrors('reelectionDate','required')" >
+              <small>This field is required</small>
+            </span>
+          </div>
         </div>
 
         <div class="card-footer">

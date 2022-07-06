@@ -2,20 +2,41 @@ package com.eng.marko.manojlovic.dto;
 
 import java.util.Objects;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.eng.marko.manojlovic.entity.City;
 
 public class StudentDto {
 	private Long studentId;
+	
+	@Digits(integer=4, fraction=0, message="Index number must have exactly four digits")
+	@NotEmpty(message="Index number is required!")
 	private String indexNumber;
+	
+	@Size(min = 2000, max=2100, message = "Name must have min 2 characters")
+	@NotEmpty(message="Index year is required!")
 	private Integer indexYear;
+	
+	@NotEmpty(message="Firstname is required!")
+	@Size(min=3, message="Minimum number of character is three")
 	private String firstname;
+	
+	@NotEmpty(message="Lastname is required!")
+	@Size(min=3, message="Minimum number of character is three")
 	private String lastname;
+	
+	@Email(regexp="^(.+)@(.+)$")
 	private String email;
-
+	
+	@Size(min=3, message="Minimum number of character is three")
 	private String address;
 
 	private City postalCode;
-
+	
+	@NotEmpty(message="Current year of study is required!")
 	private Integer currentYearOfStudy;
 	
 	public StudentDto() {

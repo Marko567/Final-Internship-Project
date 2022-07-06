@@ -2,11 +2,15 @@ package com.eng.marko.manojlovic.dto;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 //import com.eng.marko.manojlovic.entity.SemesterEntity;
 
 public class SubjectDto {
 	private Long subjectId;
-
+	
+	@Size(min=3, message="Minimal number of characters is three")
 	private String name;
 
 	private String description;
@@ -15,6 +19,7 @@ public class SubjectDto {
 
 	//private SemesterEntity semester;
 	private Integer semesterEntityId;
+	@NotNull(message="Semester name is required!")
 	private String semesterName;
 
 	public SubjectDto() {

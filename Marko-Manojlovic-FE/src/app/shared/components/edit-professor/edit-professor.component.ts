@@ -46,13 +46,13 @@ export class EditProfessorComponent implements OnInit, OnDestroy {
   buildForm(professor: Professor | undefined) {
     this.professorForm = this.fb.group({
       professorId: [professor?.professorId],
-      firstname: [professor?.firstname, Validators.required],
-      lastname: [professor?.lastname],
-      email: [professor?.email],
-      address: [professor?.address],
+      firstname: [professor?.firstname, [Validators.required, Validators.minLength(3)]],
+      lastname: [professor?.lastname, [Validators.required, Validators.minLength(3)]],
+      email: [professor?.email, Validators.email],
+      address: [professor?.address, Validators.minLength(3)],
       postalCode: [professor?.postalCode.zipCode, Validators.required],
       title: [professor?.title?.name, Validators.required],
-      phone: [professor?.phone],
+      phone: [professor?.phone, Validators.minLength(9)],
       reelectionDate: [professor?.reelectionDate, Validators.required]
     })
   }
@@ -71,5 +71,11 @@ export class EditProfessorComponent implements OnInit, OnDestroy {
         console.log("Error: ", error);
       }
     });
+  }
+
+  hasErrors(componentName: string, errorCode?: string) {
+    return  (this.professorForm?.get(componentName)?.dirty || this.professorForm?.get(componentName)?.touched) &&
+    ((!errorCode && this.professorForm?.get(componentName)?.errors ) ||
+    (errorCode && this.professorForm?.get(componentName)?.hasError(errorCode)));
   }
 }

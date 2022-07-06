@@ -21,24 +21,30 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
 	private Long studentId;
-	@Column(unique=true, nullable=false)
+	
+	@Column(length=4, unique=true, nullable=false)
 	private String indexNumber;
-	@Column(unique=true, nullable=false)
+	
+	@Column(length=4, nullable=false)
 	private Integer indexYear;
-	@Column(nullable=false)
+	
+	@Column(length=30, nullable=false)
 	private String firstname;
-	@Column(nullable=false)
+	
+	@Column(length=30, nullable=false)
 	private String lastname;
-	@Column(unique=true)
+	
+	@Column(length=30, unique=true)
 	private String email;
-	@Column
+	
+	@Column(length=50)
 	private String address;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "postal_code")
 	private City postalCode;
 	
-	@Column(nullable=false)
+	@Column(length=7, nullable=false)
 	private Integer currentYearOfStudy;
 
 	public Student() {

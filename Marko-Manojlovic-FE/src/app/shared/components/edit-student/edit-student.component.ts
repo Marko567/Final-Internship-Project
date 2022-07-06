@@ -37,12 +37,12 @@ export class EditStudentComponent implements OnInit, OnDestroy {
   buildForm(student: Student | undefined) {
     this.studentForm = this.fb.group({
       studentId: [student?.studentId],
-      firstname: [student?.firstname, Validators.required],
-      lastname: [student?.lastname],
-      indexNumber: [student?.indexNumber],
-      indexYear: [student?.indexYear],
-      email: [student?.email],
-      address: [student?.address],
+      firstname: [student?.firstname, [Validators.required, Validators.minLength(3)]],
+      lastname: [student?.lastname, [Validators.required, Validators.minLength(3)]],
+      indexNumber: [student?.indexNumber, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+      indexYear: [student?.indexYear, [Validators.required, Validators.min(2000), Validators.max(2100)]],
+      email: [student?.email, Validators.email],
+      address: [student?.address, Validators.minLength(3)],
       postalCode: [student?.postalCode.zipCode, Validators.required],
       currentYearOfStudy: [student?.currentYearOfStudy, Validators.required]
     })
@@ -62,5 +62,11 @@ export class EditStudentComponent implements OnInit, OnDestroy {
         console.log("Error: ", error);
       }
     });
+  }
+
+  hasErrors(componentName: string, errorCode?: string) {
+    return  (this.studentForm?.get(componentName)?.dirty || this.studentForm?.get(componentName)?.touched) &&
+    ((!errorCode && this.studentForm?.get(componentName)?.errors ) ||
+    (errorCode && this.studentForm?.get(componentName)?.hasError(errorCode)));
   }
 }

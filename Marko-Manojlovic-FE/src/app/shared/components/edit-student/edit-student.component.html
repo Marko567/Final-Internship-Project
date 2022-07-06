@@ -15,36 +15,91 @@
         <div class="from-group">
           <label for="firstname">Firstname: </label>
           <input id="firstname" class="form-control" placeholder="Firstname"  type="text" formControlName="firstname" />
+          <div class="alert alert-danger" *ngIf="hasErrors('firstname')">
+            <span *ngIf="hasErrors('firstname','required')" >
+              <small> This field is required </small>
+            </span>
+            <span *ngIf="hasErrors('firstname','minlength')" >
+              <small>This value is less then allowable minimum {{this.studentForm.get('firstname')?.errors?.['minlength']['requiredLength'] }} </small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="lastname">Lastname: </label>
           <input id="lastname" class="form-control" placeholder="Lastname"  type="text" formControlName="lastname" />
+          <div class="alert alert-danger" *ngIf="hasErrors('lastname')">
+            <span *ngIf="hasErrors('lastname','required')" >
+              <small> This field is required </small>
+            </span>
+            <span *ngIf="hasErrors('lastname','minlength')" >
+              <small>This value is less then allowable minimum {{this.studentForm.get('lastname')?.errors?.['minlength']['requiredLength'] }} </small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="indexNumber">IndexNumber: </label>
           <input id="indexNumber" class="form-control" placeholder="Index Number"  type="text" formControlName="indexNumber" />
+          <div class="alert alert-danger" *ngIf="hasErrors('indexNumber')">
+            <span *ngIf="hasErrors('indexNumber','required')" >
+              <small> This field is required </small>
+            </span>
+            <span *ngIf="hasErrors('indexNumber','minlength')" >
+              <small>This value must have {{this.studentForm.get('indexNumber')?.errors?.['minlength']['requiredLength'] }} digits </small>
+            </span>
+            <span *ngIf="hasErrors('indexNumber','maxlength')" >
+              <small>This value must have {{this.studentForm.get('indexNumber')?.errors?.['maxlength']['requiredLength'] }} digits </small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="indexYear">IndexYear: </label>
           <input id="indexYear" class="form-control" placeholder="Index Year"  type="number" formControlName="indexYear" />
+          <div class="alert alert-danger" *ngIf="hasErrors('indexYear')">
+            <span *ngIf="hasErrors('indexYear','required')" >
+              <small> This field is required </small>
+            </span>
+            <span *ngIf="hasErrors('indexYear','min')" >
+              <small>
+                This value must be greater then  {{this.studentForm.get('indexYear')?.errors?.['min']['min'] }}
+              </small>
+            </span>
+            <span *ngIf="hasErrors('indexYear','max')" >
+              <small>
+                This value must be less then {{this.studentForm.get('indexYear')?.errors?.['max']['max'] }}
+              </small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="address">Address: </label>
           <input id="address" class="form-control" placeholder="Address"  type="text" formControlName="address" />
+          <div class="alert alert-danger" *ngIf="hasErrors('address')">
+            <span *ngIf="hasErrors('address','minlength')" >
+              <small>This value must have minimum {{this.studentForm.get('address')?.errors?.['minlength']['requiredLength'] }} characters</small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
           <label for="email">Email: </label>
           <input id="email" class="form-control" placeholder="e-mail"  type="text" formControlName="email" />
+          <span *ngIf="hasErrors('email', 'email')" class="error">
+            <small>Invalid e-mail</small>
+          </span>
         </div>
 
         <div class="from-group">
           <label for="currentYearOfStudy">Current Year Of Study:</label>
           <input id="currentYearOfStudy" class="form-control" placeholder="currentYearOfStudy"  type="number" formControlName="currentYearOfStudy" />
+          <div class="alert alert-danger" *ngIf="hasErrors('currentYearOfStudy')">
+            <span *ngIf="hasErrors('currentYearOfStudy', 'required')">
+              <small> This field is required </small>
+            </span>
+          </div>
         </div>
 
         <div class="from-group">
@@ -53,6 +108,11 @@
             <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
             <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
           </select>
+          <div class="alert alert-danger" *ngIf="hasErrors('postalCode')">
+            <span *ngIf="hasErrors('postalCode', 'required')">
+              <small> This field is required </small>
+            </span>
+          </div>
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-outline-dark">Save</button>

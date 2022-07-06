@@ -28,20 +28,20 @@ public class Professor implements Serializable {
     @Column
 	private Long professorId;
 	
-	@Column(nullable=false)
+	@Column(length=30, nullable=false)
 	private String firstname;
-	@Column(nullable=false)
+	@Column(length=30, nullable=false)
 	private String lastname;
-	@Column(unique=true)
+	@Column(length=30, unique=true)
 	private String email;
-	@Column
+	@Column(length=50)
 	private String address;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "postal_code")
+    @JoinColumn(name = "postal_code", referencedColumnName="zipCode")
 	private City postalCode;
 	
-	@Column
+	@Column(length=15)
 	private String phone;
 	@Column(nullable=false)
 	private Date reelectionDate;

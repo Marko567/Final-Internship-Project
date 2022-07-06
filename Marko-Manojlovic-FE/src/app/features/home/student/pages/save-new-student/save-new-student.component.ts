@@ -41,14 +41,20 @@ export class SaveNewStudentComponent implements OnInit {
   buildForm() {
     this.studentForm = this.fb.group({
       studentId: [''],
-      firstname: ['', Validators.required],
-      lastname: [''],
-      indexNumber: [''],
-      indexYear: [''],
-      email: [''],
-      address: [''],
+      firstname: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
+      indexNumber: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+      indexYear: ['', [Validators.required, Validators.min(2000), Validators.max(2100)]],
+      email: ['', Validators.email],
+      address: ['', Validators.minLength(3)],
       postalCode: ['', Validators.required],
       currentYearOfStudy: ['', Validators.required]
     })
+  }
+
+  hasErrors(componentName: string, errorCode?: string) {
+    return  (this.studentForm?.get(componentName)?.dirty || this.studentForm?.get(componentName)?.touched) &&
+    ((!errorCode && this.studentForm?.get(componentName)?.errors ) ||
+    (errorCode && this.studentForm?.get(componentName)?.hasError(errorCode)));
   }
 }

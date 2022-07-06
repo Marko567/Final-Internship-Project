@@ -28,15 +28,18 @@ public class Subject implements Serializable {
 	@Column
 	private Long subjectId;
 
-	@Column
+	@Column(length=30, nullable=false)
 	private String name;
-	@Column
+	@Column(length=200)
 	private String description;
-	@Column
+	@Column(length=1, nullable=false)
 	private Integer noOfEsp;
+	
+	@Column(length=1, nullable=false)
+	private Integer yearOfStudy;
 
 	@ManyToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn(name = "semester")
+	@JoinColumn(name = "semester", nullable=false)
 	private SemesterEntity semester;
 	
 	@OneToMany(mappedBy="subject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

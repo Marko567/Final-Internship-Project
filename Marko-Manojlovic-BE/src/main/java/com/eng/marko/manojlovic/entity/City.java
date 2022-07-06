@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class City implements Serializable {
 	private static final long serialVersionUID = 4173469229778929118L;
 	@Id
-	@Column
+	@Column(length=5)
 	private Long zipCode;
 	@Column
 	private String name;

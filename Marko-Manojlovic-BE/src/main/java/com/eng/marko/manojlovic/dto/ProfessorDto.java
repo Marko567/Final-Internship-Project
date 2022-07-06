@@ -4,24 +4,33 @@ import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 import com.eng.marko.manojlovic.entity.City;
 import com.eng.marko.manojlovic.entity.Engagement;
 import com.eng.marko.manojlovic.entity.Title;
 
 public class ProfessorDto {
 	private Long professorId;
-
+	
+	@Size(min=3, message="Minimal number of characters is three")
 	private String firstname;
-
+	
+	@Size(min=3, message="Minimal number of characters is three")
 	private String lastname;
-
+	
+	@Email(regexp="^(.+)@(.+)$")
 	private String email;
-
+	
+	@Size(min=3, message="Minimal number of characters is three")
 	private String address;
 
 	private City postalCode;
-
+	
+	@Size(min=9, message="Minimal number of characters is 9")
 	private String phone;
+	
 	private Date reelectionDate;
 
 	private Title title;

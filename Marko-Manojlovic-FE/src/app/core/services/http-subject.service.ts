@@ -28,4 +28,19 @@ export class HttpSubjectService {
 
     return this.httpClient.get<PageDto<Subject>>(`${environment.serverUrl}/subjects/filter`, {params});
   }
+  deleteSubject(subject: Subject) {
+    return this.httpClient.delete<string>(`${environment.serverUrl}/subjects/${subject.subjectId}`, {responseType: 'text' as 'json'});
+  }
+
+  updateSubject(subject: Subject) {
+    return this.httpClient.put<Subject>(`${environment.serverUrl}/subjects`, subject);
+  }
+
+  getById(subjectId: number) {
+    return this.httpClient.get<Subject>(`${environment.serverUrl}/subjects/${subjectId}`);
+  }
+
+  saveSubject(subject: Subject) {
+    return this.httpClient.post<Subject>(`${environment.serverUrl}/subjects`, subject);
+  }
 }
