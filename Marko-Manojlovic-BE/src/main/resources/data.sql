@@ -5,10 +5,12 @@ INSERT INTO `city` (`zip_code`, `name`) VALUES
 
 INSERT INTO `semester_entity` (`semester_entity_id`, `semester_name`) VALUES (1, 'Winter'), (2, 'Summer');
 
+INSERT INTO `exam_period_status` (`status_id`, `name`) VALUES (1, 'Active'), (2, 'Passed');
+
 INSERT INTO `title` (`title_id`, `name`) VALUES 
 (1, 'Docent'),
 (2, 'Vanredni profesor'),
-(3, 'Redovni profesor');`title``student``city`
+(3, 'Redovni profesor');
 
 INSERT INTO `user` (`firstname`, `lastname`, `username`, `password`) VALUES
 ('Marko', 'Markovic', 'marko', 'marko'),

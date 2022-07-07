@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table
 public class ExamPeriod implements Serializable {
@@ -27,8 +29,10 @@ public class ExamPeriod implements Serializable {
 	@Column
 	private String name;
 	@Column
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date startDate;
 	@Column
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date endDate;
 
 	@ManyToOne(cascade = { CascadeType.MERGE })

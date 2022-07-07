@@ -1,13 +1,20 @@
 package com.eng.marko.manojlovic.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +62,7 @@ public class ProfessorRestController {
 	}
 	
 	@PostMapping()
-	public @ResponseBody ResponseEntity<Object> saveProfessor(@RequestBody ProfessorDto professorDto) {
+	public @ResponseBody ResponseEntity<Object> saveProfessor(@Valid @RequestBody ProfessorDto professorDto) {
 		try {
 			ProfessorDto professor = professorService.saveProfessor(professorDto);
 			return ResponseEntity.status(HttpStatus.OK).body(professor);
@@ -75,7 +82,7 @@ public class ProfessorRestController {
 	}
 	
 	@PutMapping()
-	public @ResponseBody ResponseEntity<Object> editProfessor(@RequestBody ProfessorDto professorDto) {
+	public @ResponseBody ResponseEntity<Object> editProfessor(@Valid @RequestBody ProfessorDto professorDto) {
 		try {
 			ProfessorDto entity = professorService.updateProfessor(professorDto);
 			return ResponseEntity.status(HttpStatus.OK).body(entity);
@@ -83,4 +90,19 @@ public class ProfessorRestController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
+        return getStringStringMap(ex);
+    }
+
+    static Map<String, String> getStringStringMap(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 }

@@ -49,20 +49,22 @@ public class Subject implements Serializable {
 		super();
 	}
 
-	public Subject(String name, String description, Integer noOfEsp, SemesterEntity semester) {
+	public Subject(String name, String description, Integer noOfEsp, Integer yearOfStudy, SemesterEntity semester) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.noOfEsp = noOfEsp;
+		this.yearOfStudy = yearOfStudy;
 		this.semester = semester;
 	}
 
-	public Subject(Long subjectId, String name, String description, Integer noOfEsp, SemesterEntity semester) {
+	public Subject(Long subjectId, String name, String description, Integer noOfEsp, Integer yearOfStudy, SemesterEntity semester) {
 		super();
 		this.subjectId = subjectId;
 		this.name = name;
 		this.description = description;
 		this.noOfEsp = noOfEsp;
+		this.yearOfStudy = yearOfStudy;
 		this.semester = semester;
 	}
 
@@ -113,10 +115,18 @@ public class Subject implements Serializable {
 	public void setEngagements(Set<Engagement> engagements) {
 		this.engagements = engagements;
 	}
+	
+	public Integer getYearOfStudy() {
+		return yearOfStudy;
+	}
+
+	public void setYearOfStudy(Integer yearOfStudy) {
+		this.yearOfStudy = yearOfStudy;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, name, noOfEsp, semester, subjectId);
+		return Objects.hash(description, engagements, name, noOfEsp, semester, subjectId, yearOfStudy);
 	}
 
 	@Override
@@ -128,15 +138,16 @@ public class Subject implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Subject other = (Subject) obj;
-		return Objects.equals(description, other.description) && Objects.equals(name, other.name)
-				&& Objects.equals(noOfEsp, other.noOfEsp) && semester == other.semester
-				&& Objects.equals(subjectId, other.subjectId);
+		return Objects.equals(description, other.description) && Objects.equals(engagements, other.engagements)
+				&& Objects.equals(name, other.name) && Objects.equals(noOfEsp, other.noOfEsp)
+				&& Objects.equals(semester, other.semester) && Objects.equals(subjectId, other.subjectId)
+				&& Objects.equals(yearOfStudy, other.yearOfStudy);
 	}
 
 	@Override
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", name=" + name + ", description=" + description + ", noOfEsp="
-				+ noOfEsp + ", semester=" + semester + "]";
+				+ noOfEsp + ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + ", engagements=" + engagements
+				+ "]";
 	}
-
 }

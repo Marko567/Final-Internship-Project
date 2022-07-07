@@ -8,21 +8,21 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule),
-    data: { roles: [UserRoles.ROLE_USER, UserRoles.ROLE_ADMIN]}
+    data: { roles: [UserRoles.ROLE_USER, UserRoles.ROLE_ADMIN]},
   },
   {
     path: 'student',
-    loadChildren: () => import('./features/home/student/student.module').then((m) => m.StudentModule),
+    loadChildren: () => import('./features/student/student.module').then((m) => m.StudentModule),
     data: { roles: [UserRoles.ROLE_ADMIN]}
   },
   {
     path: 'professor',
-    loadChildren: () => import('./features/home/professor/professor.module').then((m) => m.ProfessorModule),
+    loadChildren: () => import('./features/professor/professor.module').then((m) => m.ProfessorModule),
     data: { roles: [UserRoles.ROLE_ADMIN]}
   },
   {
     path: 'subject',
-    loadChildren: () => import('./features/home/subject/subject.module').then((m) => m.SubjectModule),
+    loadChildren: () => import('./features/subject/subject.module').then((m) => m.SubjectModule),
     data: { roles: [UserRoles.ROLE_ADMIN]}
   },
   {path: '', pathMatch:"full", redirectTo:'/login'}

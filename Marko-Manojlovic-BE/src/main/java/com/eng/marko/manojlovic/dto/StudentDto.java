@@ -5,7 +5,10 @@ import java.util.Objects;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
 
 import com.eng.marko.manojlovic.entity.City;
 
@@ -16,8 +19,8 @@ public class StudentDto {
 	@NotEmpty(message="Index number is required!")
 	private String indexNumber;
 	
-	@Size(min = 2000, max=2100, message = "Name must have min 2 characters")
-	@NotEmpty(message="Index year is required!")
+	@Range(min = 2000, max=2100, message = "This value must be between 2000 and 2100")
+	@NotNull(message="Index year is required!")
 	private Integer indexYear;
 	
 	@NotEmpty(message="Firstname is required!")
@@ -28,7 +31,7 @@ public class StudentDto {
 	@Size(min=3, message="Minimum number of character is three")
 	private String lastname;
 	
-	@Email(regexp="^(.+)@(.+)$")
+	@Email(regexp="^(.+)@(.+)$", message="email field must containt '@' character")
 	private String email;
 	
 	@Size(min=3, message="Minimum number of character is three")
@@ -36,7 +39,8 @@ public class StudentDto {
 
 	private City postalCode;
 	
-	@NotEmpty(message="Current year of study is required!")
+	@NotNull(message="Current year of study is required!")
+	@Range(min=1, message="This field must contain at least one digit!")
 	private Integer currentYearOfStudy;
 	
 	public StudentDto() {

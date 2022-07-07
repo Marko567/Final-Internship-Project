@@ -1,4 +1,4 @@
-<ul ngbNav  #nav="ngbNav" class="app-nav-bar flex-no-wrap justify-content-between" >
+<ul ngbNav *ngIf="userLoginData.isUserLogged" #nav="ngbNav" class="app-nav-bar flex-no-wrap justify-content-between" >
   <li ngbNavItem *ngIf="userLoginData.isUserLogged" >
     <a ngbNavLink routerLink="/student">Students</a>
   </li>
@@ -8,7 +8,7 @@
   <li ngbNavItem *ngIf="userLoginData.isUserLogged" >
     <a ngbNavLink routerLink="/subject">Subjects</a>
   </li>
-  <li ngbNavItem class="flex-grow-1 flex-shrink-1 text-center" *ngIf="userLoginData.isUserLogged">
+  <li ngbNavItem class="flex-grow-1 flex-shrink-1 text-center justify-content-end" *ngIf="userLoginData.isUserLogged">
     <a  ngbNavLink routerLink="/home">Home</a>
   </li>
   <li ngbNavItem>

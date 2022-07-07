@@ -1,1 +1,12 @@
-.app-nav-bar { background-color: lightgrey;}
+.app-nav-bar {
+  background-color: lightgrey;
+  height: 3rem;
+}
+
+.app-nav-bar li {
+  display: flex;
+}
+
+li a {
+  align-items: baseline;
+}

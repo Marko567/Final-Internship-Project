@@ -1,0 +1,60 @@
+<h2 class="text-center">Add New Exam Period</h2>
+<div class="d-flex d-flex-column justify-content-center">
+  <form class="d-flex w-50 justify-content-center" [formGroup]="examPeriodForm" *ngIf="examPeriodForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-8 col-lg-6">
+
+      <div class="from-group">
+        <label for="name">Name: </label>
+        <input id="name" class="form-control" placeholder="Name"  type="text" formControlName="name" />
+        <!-- <div class="alert alert-danger" *ngIf="hasErrors('name')">
+          <span *ngIf="hasErrors('name','required')" >
+            <small>This field is required</small>
+          </span>
+          <span *ngIf="hasErrors('name','minlength')" >
+            <small>This value must have minimum {{this.subjectForm.get('name')?.errors?.['minlength']['requiredLength'] }} characters</small>
+          </span>
+        </div> -->
+      </div>
+
+      <div class="from-group">
+        <label for="startDate">Start Date:</label>
+        <input id="startDate" class="form-control" placeholder="Start Date"  type="date" formControlName="startDate" />
+        <!-- <div class="alert alert-danger" *ngIf="hasErrors('startDate')">
+          <span *ngIf="hasErrors('reelectionDate','required')" >
+            <small>This field is required</small>
+          </span>
+        </div> -->
+      </div>
+
+      <div class="from-group">
+        <label for="endDate">End Date:</label>
+        <input id="endDate" class="form-control" placeholder="End Date"  type="date" formControlName="endDate" />
+        <!-- <div class="alert alert-danger" *ngIf="hasErrors('startDate')">
+          <span *ngIf="hasErrors('reelectionDate','required')" >
+            <small>This field is required</small>
+          </span>
+        </div> -->
+      </div>
+    </div>
+    <div class="from-group">
+      <fieldset>
+        <legend>Exam Period Status:</legend>
+
+        <div>
+          <input type="radio" id="active" name="active" value=`${{this.examPeriodStatuses[0]}}`
+                checked>
+          <label for="active">Active</label>
+        </div>
+
+        <div>
+          <input type="radio" id="passed" name="passed" value=`${{this.examPeriodStatuses[1]}}`>
+          <label for="passed">Passed</label>
+        </div>
+      </fieldset>
+      <div class="d-flex flex-row-reverse mt-2">
+        <button type="submit" class="btn btn-outline-success" >Save</button>
+        <button class="btn btn-outline-success" routerLink="/home" queryParamsHandling="preserve">Get back</button>
+      </div>
+    </div>
+  </form>
+</div>

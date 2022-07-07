@@ -1,13 +1,20 @@
 package com.eng.marko.manojlovic.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,7 +61,7 @@ public class StudentRestController {
 	}
 	
 	@PostMapping()
-	public @ResponseBody ResponseEntity<Object> saveStudent(@RequestBody StudentDto studentDto) {
+	public @ResponseBody ResponseEntity<Object> saveStudent(@Valid @RequestBody StudentDto studentDto) {
 		try {
 			StudentDto student = studentService.saveStudent(studentDto);
 			return ResponseEntity.status(HttpStatus.OK).body(student);
@@ -74,7 +81,7 @@ public class StudentRestController {
 	}
 	
 	@PutMapping()
-	public @ResponseBody ResponseEntity<Object> editStudent(@RequestBody StudentDto studentDto) {
+	public @ResponseBody ResponseEntity<Object> editStudent(@Valid @RequestBody StudentDto studentDto) {
 		try {
 			StudentDto entity = studentService.updateStudent(studentDto);
 			
@@ -83,4 +90,19 @@ public class StudentRestController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
+        return getStringStringMap(ex);
+    }
+
+    static Map<String, String> getStringStringMap(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 }

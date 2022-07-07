@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.eng.marko.manojlovic.entity.City;
@@ -14,13 +16,15 @@ import com.eng.marko.manojlovic.entity.Title;
 public class ProfessorDto {
 	private Long professorId;
 	
+	@NotEmpty(message="Firstname is required!")
 	@Size(min=3, message="Minimal number of characters is three")
 	private String firstname;
 	
+	@NotEmpty(message="Lastname is required!")
 	@Size(min=3, message="Minimal number of characters is three")
 	private String lastname;
 	
-	@Email(regexp="^(.+)@(.+)$")
+	@Email(regexp="^(.+)@(.+)$", message="Email must contain '@' character")
 	private String email;
 	
 	@Size(min=3, message="Minimal number of characters is three")
@@ -31,8 +35,10 @@ public class ProfessorDto {
 	@Size(min=9, message="Minimal number of characters is 9")
 	private String phone;
 	
+	@NotNull(message="Reelection Date is required")
 	private Date reelectionDate;
-
+	
+	@NotNull(message="Title is required")
 	private Title title;
 	
 	private Set<Engagement> engagements;

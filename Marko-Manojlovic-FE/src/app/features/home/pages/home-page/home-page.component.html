@@ -1,1 +1,19 @@
-<h2 class="text-center">Student Service</h2>
+<div class="home-page-content">
+  <div class="left">
+    <h4 class="text-center">Actions</h4>
+    <ul ngbNav *ngIf="userLoginData.isUserLogged" #nav="ngbNav" class="app-nav-bar flex-no-wrap justify-content-between" >
+      <li ngbNavItem>
+        <a ngbNavLink [routerLink]="['/home/test/define-new-exam-period']">Define New Exam Period</a>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink routerLink="/home/define-new-exam">Define New Exam</a>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink routerLink="/home/register-for-an-exam">Register for an Exam</a>
+      </li>
+    </ul>
+  </div>
+  <div class="right">
+    <router-outlet></router-outlet>
+  </div>
+</div>
