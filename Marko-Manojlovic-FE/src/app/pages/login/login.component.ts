@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
             this.userLoginData.token = 'Basic ' + btoa(`${loginData.username}:${loginData.password}`);
             this.userLoginData.userLoginData = userLoginData;
             console.log('user login data:', this.userLoginData.userLoginData);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/test/general-overview']);
           },
           error: error=> {
             console.error('error:', error.error);

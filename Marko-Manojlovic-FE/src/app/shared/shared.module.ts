@@ -12,6 +12,7 @@ import { DetailsProfessorComponent } from './components/details-professor/detail
 import { EditProfessorComponent } from './components/edit-professor/edit-professor.component';
 import { DetailsSubjectComponent } from './components/details-subject/details-subject.component';
 import { EditSubjectComponent } from './components/edit-subject/edit-subject.component';
+import { ExamPeriodListComponent } from './components/exam-period-list/exam-period-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EditSubjectComponent } from './components/edit-subject/edit-subject.com
     DetailsProfessorComponent,
     EditProfessorComponent,
     DetailsSubjectComponent,
-    EditSubjectComponent
+    EditSubjectComponent,
+    ExamPeriodListComponent
   ],
   imports: [
     CommonModule,

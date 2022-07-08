@@ -1,0 +1,8 @@
+<div class="active-exam-period d-flex align-items-center">
+  <h4 class="mb-0">Active Exam Period: </h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <span *ngIf="activeExamPeriod !== null; then content else other_content"></span>
+  <ng-template #content> <span class="fw-bold fs-4 text-primary"> {{activeExamPeriod?.name}}</span>  </ng-template>
+  <ng-template #other_content> <span class="fw-bold fs-4 text-primary"> None </span> </ng-template>
+  <button type="button" class="change-button btn btn-secondary" *ngIf="activeExamPeriod?.name" (click)="changeExamPeriodStatus()">Change to Inactive</button>
+  <button type="button" class="change-button btn btn-secondary" *ngIf="!activeExamPeriod?.name" (click)="setActiveExamPeriod()">Set Active</button>
+</div>

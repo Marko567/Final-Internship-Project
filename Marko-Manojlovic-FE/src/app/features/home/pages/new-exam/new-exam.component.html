@@ -1,0 +1,25 @@
+<h3 class="text-center">Define New Exam</h3>
+<form>
+  <div>
+    <label for="subject">Subject:</label>
+    <select id="subject"  name="subject">
+      <option *ngFor="let subject of subjects" [ngValue]="subject">{{ subject.name }} </option>
+    </select>
+  </div>
+  <div>
+    <label for="professor">Professor: </label>
+    <select name="professor" id="professor">
+      <option></option>
+    </select>
+  </div>
+  <div>
+    <label>Exam Period: </label>
+    <select>
+      <option *ngFor="let examPeriod of examPeriods" [ngValue]="examPeriod"> {{ examPeriod.name }}</option>
+    </select>
+  </div>
+  <div>
+    <label for="date">Date: </label>
+    <input type="date" id="date">
+  </div>
+</form>

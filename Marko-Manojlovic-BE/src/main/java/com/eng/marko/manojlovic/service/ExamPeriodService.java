@@ -18,9 +18,9 @@ public interface ExamPeriodService {
 	
 	public void deleteExamPeriod(Long id) throws InvalidEntityException;
 	
-	public ExamPeriod updateExamPeriod(ExamPeriod examPeriod) throws InvalidEntityException;
+	public ExamPeriod updateExamPeriod(ExamPeriod examPeriod) throws InvalidEntityException, EntityExistsException;
 
 	Page<ExamPeriod> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
 
-	List<ExamPeriod> findActiveExamPeriods();
+	ExamPeriod findActiveExamPeriods();
 }

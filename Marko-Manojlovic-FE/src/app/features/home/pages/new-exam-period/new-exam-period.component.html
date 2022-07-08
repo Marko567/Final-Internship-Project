@@ -1,6 +1,6 @@
 <h2 class="text-center">Add New Exam Period</h2>
 <div class="d-flex d-flex-column justify-content-center">
-  <form class="d-flex w-50 justify-content-center" [formGroup]="examPeriodForm" *ngIf="examPeriodForm" (ngSubmit)="onSubmit()">
+  <form class="d-flex w-50 justify-content-center p-4" [formGroup]="examPeriodForm" *ngIf="examPeriodForm" (ngSubmit)="onSubmit()">
     <div class="col-md-8 col-lg-6">
 
       <div class="from-group">
@@ -28,32 +28,27 @@
 
       <div class="from-group">
         <label for="endDate">End Date:</label>
-        <input id="endDate" class="form-control" placeholder="End Date"  type="date" formControlName="endDate" />
+        <input id="endDate" class="form-control"  type="date" formControlName="endDate" />
         <!-- <div class="alert alert-danger" *ngIf="hasErrors('startDate')">
           <span *ngIf="hasErrors('reelectionDate','required')" >
             <small>This field is required</small>
           </span>
         </div> -->
       </div>
-    </div>
-    <div class="from-group">
-      <fieldset>
-        <legend>Exam Period Status:</legend>
-
-        <div>
-          <input type="radio" id="active" name="active" value=`${{this.examPeriodStatuses[0]}}`
-                checked>
-          <label for="active">Active</label>
-        </div>
-
-        <div>
-          <input type="radio" id="passed" name="passed" value=`${{this.examPeriodStatuses[1]}}`>
-          <label for="passed">Passed</label>
-        </div>
-      </fieldset>
+      <div class="from-group">
+        <label for="examPeriodStatus">Exam Period Status: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+        <select id="examPeriodStatus"  formControlName="examPeriodStatus">
+          <option *ngFor="let status of examPeriodStatuses" [ngValue]="status">{{status.name}}</option>
+        </select>
+        <!-- <div class="alert alert-danger" *ngIf="hasErrors('semesterName')">
+          <span *ngIf="hasErrors('semesterName','required')" >
+            <small>This field is required</small>
+          </span>
+        </div> -->
+      </div>
       <div class="d-flex flex-row-reverse mt-2">
         <button type="submit" class="btn btn-outline-success" >Save</button>
-        <button class="btn btn-outline-success" routerLink="/home" queryParamsHandling="preserve">Get back</button>
+        <button class="btn btn-outline-success" routerLink="/home/test/general-overview" queryParamsHandling="preserve">Get back</button>
       </div>
     </div>
   </form>

@@ -35,9 +35,9 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 
 	@Override
 	public ExamPeriod saveExamPeriod(ExamPeriod examPeriod) throws EntityExistsException {
-		List<ExamPeriod> list = this.examPeriodRepository.findActiveExamPeriods();
+		ExamPeriod em = this.examPeriodRepository.findActiveExamPeriods();
 		
-		if(!list.isEmpty()) {
+		if(em != null && (examPeriod.getExamPeriodStatus().getStatusId() == 1)) {
 			throw new EntityExistsException(examPeriod, "At least one ExamPeriod with status: ACTIVE is already present in the database");
 		}
 		return this.examPeriodRepository.save(examPeriod);
@@ -54,7 +54,13 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 	}
 
 	@Override
-	public ExamPeriod updateExamPeriod(ExamPeriod examPeriod) throws InvalidEntityException {
+	public ExamPeriod updateExamPeriod(ExamPeriod examPeriod) throws InvalidEntityException, EntityExistsException {
+		ExamPeriod em = this.examPeriodRepository.findActiveExamPeriods();
+		
+		if(em != null && (examPeriod.getExamPeriodStatus().getStatusId() == 1)) {
+			throw new EntityExistsException(examPeriod, "At least one ExamPeriod with status: ACTIVE is already present in the database");
+		}
+		
 		if(examPeriodRepository.existsById(examPeriod.getId())) {
 			return examPeriodRepository.save(examPeriod);
 		}
@@ -72,7 +78,7 @@ public class ExamPeriodServiceImpl implements ExamPeriodService {
 	}
 
 	@Override
-	public List<ExamPeriod> findActiveExamPeriods() {
+	public ExamPeriod findActiveExamPeriods() {
 		return this.examPeriodRepository.findActiveExamPeriods();
 	}
 }

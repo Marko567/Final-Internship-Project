@@ -82,4 +82,5 @@ public class ProfessorServiceImpl implements ProfessorService {
 		Page<ProfessorDto> entites = professorRepository.findAll(pageable).map(professorMapper::toDto);
 		return entites;
 	}
+
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ExamPeriodStatus } from 'src/app/core/models';
 import { HttpExamPeriodStatusService } from 'src/app/core/services/http-exam-period-status.service';
+import { HttpExamPeriodService } from 'src/app/core/services/http-exam-period.service';
 
 @Component({
   selector: 'app-new-exam-period',
@@ -12,10 +14,12 @@ export class NewExamPeriodComponent implements OnInit {
   examPeriodForm?: FormGroup;
   examPeriodStatuses: ExamPeriodStatus[] = [];
 
-  constructor(private httpExamPeriodStatus: HttpExamPeriodStatusService) { }
+  constructor(private httpExamPeriodStatus: HttpExamPeriodStatusService, private fb: FormBuilder,
+    private httpExamPeriod: HttpExamPeriodService, private router: Router) { }
 
   ngOnInit(): void {
     this.httpExamPeriodStatus.getAll().subscribe(response => this.examPeriodStatuses = response);
+    this.buildForm();
   }
 
   hasErrors(componentName: string, errorCode?: string) {
@@ -25,6 +29,15 @@ export class NewExamPeriodComponent implements OnInit {
     ((!errorCode && this.examPeriodForm?.get(componentName)?.errors ) ||
     (errorCode && this.examPeriodForm?.get(componentName)?.hasError(errorCode)));
   }
+  buildForm() {
+    this.examPeriodForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      startDate: [''],
+      endDate: ['', Validators.required],
+      examPeriodStatus: ['', Validators.required],
+    })
+  }
+
   onSubmit() {
     if(this.examPeriodForm?.invalid) {
       return;
@@ -32,14 +45,14 @@ export class NewExamPeriodComponent implements OnInit {
     const formData =  this.examPeriodForm?.getRawValue();
 
 
-    // this.subjectService.saveSubject(formData).subscribe({
-    //   next: response => {
-    //     console.log("response", response);
-    //   },
-    //   error: error => {
-    //     console.log("An error occured while saving the subject...", error);
-    //   }
-    // })
-    // this.router.navigate(['/subject/subject-list']);
+    this.httpExamPeriod.saveExamPeriod(formData).subscribe({
+      next: response => {
+        console.log("response", response);
+      },
+      error: error => {
+        console.log("An error occured while saving the exam period...", error);
+      }
+    })
+    this.router.navigate(['/home']);
   }
 }

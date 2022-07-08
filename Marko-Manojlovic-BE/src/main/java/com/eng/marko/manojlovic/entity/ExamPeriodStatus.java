@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +14,6 @@ public class ExamPeriodStatus implements Serializable {
 	private static final long serialVersionUID = -3397678266482174779L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer statusId;
 	@Column
 	private String name;
@@ -26,6 +23,22 @@ public class ExamPeriodStatus implements Serializable {
 	public ExamPeriodStatus(Integer statusId, String name) {
 		super();
 		this.statusId = statusId;
+		this.name = name;
+	}
+	
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -45,5 +58,9 @@ public class ExamPeriodStatus implements Serializable {
 		ExamPeriodStatus other = (ExamPeriodStatus) obj;
 		return Objects.equals(name, other.name) && Objects.equals(statusId, other.statusId);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ExamPeriodStatus [statusId=" + statusId + ", name=" + name + "]";
+	}
 }

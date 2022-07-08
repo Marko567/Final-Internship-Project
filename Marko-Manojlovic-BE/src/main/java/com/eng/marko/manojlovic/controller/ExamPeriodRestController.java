@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.eng.marko.manojlovic.entity.ExamPeriod;
 import com.eng.marko.manojlovic.exception.EntityExistsException;
@@ -37,7 +37,7 @@ public class ExamPeriodRestController {
 	
 	@GetMapping("filter")
 	public ResponseEntity<Page<ExamPeriod>> findAll(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "firstname") String sortBy,
+			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "name") String sortBy,
 			@RequestParam(defaultValue = "asc") String sortOrder) {
 		return new ResponseEntity<Page<ExamPeriod>>(examPeriodService.findAll(pageNo, pageSize, sortBy, sortOrder), new HttpHeaders(),
 				HttpStatus.OK);
@@ -57,10 +57,21 @@ public class ExamPeriodRestController {
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Object> saveExamPeriod(@RequestBody ExamPeriod examPeriod) {
 		try {
-			System.out.println("examPeriod pre nego da ga uhvati service: " + examPeriod);
 			ExamPeriod ePeriod = examPeriodService.saveExamPeriod(examPeriod);
 			return ResponseEntity.status(HttpStatus.OK).body(ePeriod);
 		} catch(EntityExistsException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	
+	@PutMapping()
+	public @ResponseBody ResponseEntity<Object> editExamPeriod(@RequestBody ExamPeriod examPeriod) {
+		try {
+			ExamPeriod ep = examPeriodService.updateExamPeriod(examPeriod);
+			return ResponseEntity.status(HttpStatus.OK).body(ep);
+		} catch(EntityExistsException e) { 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		} catch(InvalidEntityException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
@@ -77,7 +88,7 @@ public class ExamPeriodRestController {
 	
 	@GetMapping(path="active")
 	public @ResponseBody ResponseEntity<Object> findActiveExamPeriods() {
-		List<ExamPeriod> examPeriod = examPeriodService.findActiveExamPeriods();
+		ExamPeriod examPeriod = examPeriodService.findActiveExamPeriods();
 		return ResponseEntity.status(HttpStatus.OK).body(examPeriod);
 	}
 }

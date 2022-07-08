@@ -4,13 +4,17 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewExamPeriodComponent } from './pages/new-exam-period/new-exam-period.component';
+import { GeneralOverviewComponent } from './pages/general-overview/general-overview.component';
+import { NewExamComponent } from './pages/new-exam/new-exam.component';
 
 
 
 @NgModule({
   declarations: [
     HomePageComponent,
-    NewExamPeriodComponent
+    NewExamPeriodComponent,
+    GeneralOverviewComponent,
+    NewExamComponent,
   ],
   imports: [
     CommonModule,
