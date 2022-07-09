@@ -61,9 +61,15 @@ public class ProfessorRestController {
 				.orElseGet( () -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid ID!"));
 	}
 	
+	@GetMapping("engagedOn/{id}")
+	public @ResponseBody ResponseEntity<Object> getProfessorsEngagedOnSubject(@PathVariable Long id) {
+		return ResponseEntity.ok(professorService.getProfessorsEngagedOnSubject(id));
+	}
+	
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Object> saveProfessor(@Valid @RequestBody ProfessorDto professorDto) {
 		try {
+			System.out.println(professorDto);
 			ProfessorDto professor = professorService.saveProfessor(professorDto);
 			return ResponseEntity.status(HttpStatus.OK).body(professor);
 		} catch(EntityExistsException e) {

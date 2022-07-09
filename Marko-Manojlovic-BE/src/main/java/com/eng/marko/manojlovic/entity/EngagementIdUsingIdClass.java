@@ -1,37 +1,20 @@
 package com.eng.marko.manojlovic.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+public class EngagementIdUsingIdClass implements Serializable {
+	private static final long serialVersionUID = -663454679720269415L;
 
-@Entity
-@Table
-@IdClass(EngagementIdUsingIdClass.class)
-public class Engagement {
-	@Id
+	private Long subjectId;
 	private Long professorId;
 
-	@Id
-	private Long subjectId;
-
-	public Engagement() {
-		super();
+	public EngagementIdUsingIdClass() {
 	}
 
-	public Engagement(Long professorId, Long subjectId) {
+	public EngagementIdUsingIdClass(Long subjectId, Long professorId) {
 		super();
-		this.professorId = professorId;
 		this.subjectId = subjectId;
-	}
-
-	public Long getProfessorId() {
-		return professorId;
-	}
-
-	public void setProfessorId(Long professorId) {
 		this.professorId = professorId;
 	}
 
@@ -41,6 +24,14 @@ public class Engagement {
 
 	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
+	}
+
+	public Long getProfessorId() {
+		return professorId;
+	}
+
+	public void setProfessorId(Long professorId) {
+		this.professorId = professorId;
 	}
 
 	@Override
@@ -56,12 +47,13 @@ public class Engagement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Engagement other = (Engagement) obj;
+		EngagementIdUsingIdClass other = (EngagementIdUsingIdClass) obj;
 		return Objects.equals(professorId, other.professorId) && Objects.equals(subjectId, other.subjectId);
 	}
 
 	@Override
 	public String toString() {
-		return "Engagement [professorId=" + professorId + ", subjectId=" + subjectId + "]";
+		return "EngagementIdUsingIdClass [subjectId=" + subjectId + ", professorId=" + professorId + "]";
 	}
+
 }

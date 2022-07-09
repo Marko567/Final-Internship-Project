@@ -21,4 +21,6 @@ public interface ProfessorService {
 	public ProfessorDto updateProfessor(ProfessorDto professor) throws InvalidEntityException;
 
 	Page<ProfessorDto> findAll(Integer pageNo, Integer pageSize, String sortBy, String sortOrder);
+	
+	List<ProfessorDto> getProfessorsEngagedOnSubject(Long id);
 }

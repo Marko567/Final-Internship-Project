@@ -77,7 +77,6 @@ export class SaveNewProfessorComponent implements OnInit {
   }
 
   hasErrors(componentName: string, errorCode?: string) {
-    console.log("hasErrors(componentName, errorCode):", componentName, errorCode);
 
     return  (this.professorForm?.get(componentName)?.dirty || this.professorForm?.get(componentName)?.touched) &&
     ((!errorCode && this.professorForm?.get(componentName)?.errors ) ||

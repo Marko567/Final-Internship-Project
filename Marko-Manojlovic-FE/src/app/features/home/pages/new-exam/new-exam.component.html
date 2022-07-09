@@ -2,14 +2,14 @@
 <form>
   <div>
     <label for="subject">Subject:</label>
-    <select id="subject"  name="subject">
+    <select id="subject"  name="subject" [(ngModel)]="selectedSubject" (change)="onSubjectSelect()">
       <option *ngFor="let subject of subjects" [ngValue]="subject">{{ subject.name }} </option>
     </select>
   </div>
   <div>
     <label for="professor">Professor: </label>
     <select name="professor" id="professor">
-      <option></option>
+      <option *ngFor="let professor of professors" [ngValue]="professor"> {{ professor.firstname + ' ' + professor.lastname }} </option>
     </select>
   </div>
   <div>

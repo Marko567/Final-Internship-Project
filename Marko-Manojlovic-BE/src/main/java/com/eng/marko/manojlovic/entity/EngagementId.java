@@ -3,12 +3,19 @@ package com.eng.marko.manojlovic.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
+import javax.persistence.Basic;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class EngagementId implements Serializable {
 	private static final long serialVersionUID = 6613195630917664168L;
+
+	@Basic
+	private Long professorId;
+	
+	@Basic
+	private Long subjectId;
+	
 	
 	public EngagementId() {
 		super();
@@ -19,12 +26,6 @@ public class EngagementId implements Serializable {
 		this.professorId = professorId;
 		this.subjectId = subjectId;
 	}
-
-	@Column
-	private Long professorId;
-	
-	@Column
-	private Long subjectId;
 
 	@Override
 	public int hashCode() {

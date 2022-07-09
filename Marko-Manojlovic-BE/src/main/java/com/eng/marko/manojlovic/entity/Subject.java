@@ -42,7 +42,7 @@ public class Subject implements Serializable {
 	@JoinColumn(name = "semester", nullable=false)
 	private SemesterEntity semester;
 	
-	@OneToMany(mappedBy="subject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="subjectId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Engagement> engagements = new HashSet<>();
 	
 	public Subject() {

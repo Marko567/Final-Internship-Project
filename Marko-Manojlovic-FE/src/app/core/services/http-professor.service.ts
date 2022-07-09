@@ -44,4 +44,8 @@ export class HttpProfessorService {
   saveProfessor(professor: Professor) {
     return this.httpClient.post<Professor>(`${environment.serverUrl}/professors`, professor);
   }
+
+  getProfessorsEngagedOnSubject(subjectId: number) {
+    return this.httpClient.get<Professor[]>(`${environment.serverUrl}/professors/engagedOn/${subjectId}`);
+  }
 }

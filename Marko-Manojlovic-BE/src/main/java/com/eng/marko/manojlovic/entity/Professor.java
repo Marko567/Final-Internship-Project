@@ -50,7 +50,7 @@ public class Professor implements Serializable {
     @JoinColumn(name = "title", nullable=false)
 	private Title title;
 	
-	@OneToMany(mappedBy="professor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="professorId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Engagement> engagements = new HashSet<>();
 	
 	public Professor() {

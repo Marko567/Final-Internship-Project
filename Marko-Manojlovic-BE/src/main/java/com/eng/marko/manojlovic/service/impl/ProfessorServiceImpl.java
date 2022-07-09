@@ -36,7 +36,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public List<ProfessorDto> findAllProfessors() {
 		List<Professor> professors = professorRepository.findAll();
 		return professors.stream().map(professor -> {
-			System.out.println("PROFESSOR: " + professor+"\n");
 			return professorMapper.toDto(professor);
 		}).collect(Collectors.toList());
 	}
@@ -81,6 +80,16 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 		Page<ProfessorDto> entites = professorRepository.findAll(pageable).map(professorMapper::toDto);
 		return entites;
+	}
+
+
+	@Override
+	public List<ProfessorDto> getProfessorsEngagedOnSubject(Long id) {
+		List<Professor> professors = professorRepository.getProfessorsEngagedOnSubject(id);
+		
+		return professors.stream().map(professor -> {
+			return professorMapper.toDto(professor);
+		}).collect(Collectors.toList());
 	}
 
 }

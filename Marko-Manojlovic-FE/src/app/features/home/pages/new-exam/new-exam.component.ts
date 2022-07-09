@@ -16,7 +16,8 @@ export class NewExamComponent implements OnInit {
   activeExamPeriod?: ExamPeriod;
   examPeriods?: ExamPeriod[];
 
-  constructor(private httpSubject: HttpSubjectService, private httpExamPeriod: HttpExamPeriodService) { }
+  constructor(private httpSubject: HttpSubjectService, private httpExamPeriod: HttpExamPeriodService,
+    private httpProfessor: HttpProfessorService) { }
 
   ngOnInit(): void {
     this.loadSubjects();
@@ -41,5 +42,22 @@ export class NewExamComponent implements OnInit {
 
   loadExamPeriods() {
     this.httpExamPeriod.getExamPeriods().subscribe(response => this.examPeriods = response);
+  }
+
+  loadProfessors() {
+    if(this.selectedSubject?.subjectId != null) {
+
+      this.httpProfessor.getProfessorsEngagedOnSubject(this.selectedSubject?.subjectId).subscribe({
+        next: response => {
+          this.professors = response;
+        },
+        error: error => {
+          console.log("Error", error);
+        }
+      });
+    }
+  }
+  onSubjectSelect() {
+    this.loadProfessors();
   }
 }

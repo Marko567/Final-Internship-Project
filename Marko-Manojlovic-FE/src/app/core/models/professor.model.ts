@@ -1,4 +1,5 @@
 import { City } from "./city.model";
+import { Engagement } from "./engagement.model";
 import { Title } from "./title.model";
 
 export interface Professor {
@@ -11,4 +12,5 @@ export interface Professor {
   phone: string;
   reelectionDate: Date;
   title: Title;
+  engagements: Engagement[];
 }
