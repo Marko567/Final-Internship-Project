@@ -2,8 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ConfirmOption } from 'src/app/core/enums';
 import { PageRequest, Professor } from 'src/app/core/models';
 import { HttpProfessorService } from 'src/app/core/services/http-professor.service';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsProfessorComponent } from 'src/app/shared/components/details-professor/details-professor.component';
 import { EditProfessorComponent } from 'src/app/shared/components/edit-professor/edit-professor.component';
 
@@ -19,7 +22,8 @@ export class ProfessorListComponent implements OnInit, OnDestroy {
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
 
-  constructor(private professorService: HttpProfessorService, private activeRoute: ActivatedRoute, private modalService: NgbModal) { }
+  constructor(private professorService: HttpProfessorService, private activeRoute: ActivatedRoute,
+     private modalService: NgbModal, private toastService: ToastService) { }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -60,17 +64,23 @@ export class ProfessorListComponent implements OnInit, OnDestroy {
 
   }
   onDelete(professor: Professor) {
+    const modalRef = this.modalService.open(ConfirmDialogComponent);
+    modalRef.componentInstance.message = `Are you sure you want to delete professor <strong> ${professor.firstname + ' ' + professor.lastname} </strong>`;
+    modalRef.componentInstance.headerText = `Deleting professor`;
+    modalRef.result.then(
+      result => result === ConfirmOption.OK && this.deleteSelectedProfessor(professor)
+    )
+  }
+  deleteSelectedProfessor(professor: Professor) {
     this.professorService.deleteProfessor(professor).subscribe({
       next: response => {
+        this.toastService.showToast({header: 'Deleting professor', message: 'Professor deleted successfully', className:'bg-success'});
         this.loadProfessors();
         console.log("Professor with ID ", professor.professorId," sucessfully deleted!");
       },
-      error: error => {
-        console.log("error", error);
-      }
+      error: error => this.toastService.showToast({header: 'Deleting professor', message: 'Professor was not deleted', className:'bg-danger'})
     })
   }
-
   loadProfessors() {
     this.subscriptions.add(
       this.professorService.getByPage(this.pageInfo)

@@ -6,3 +6,11 @@
   <button type="button" class="change-button btn btn-secondary" *ngIf="activeExamPeriod?.name" (click)="changeExamPeriodStatus()">Change to Inactive</button>
   <button type="button" class="change-button btn btn-secondary" *ngIf="!activeExamPeriod?.name" (click)="setActiveExamPeriod()">Set Active</button>
 </div>
+<h4 *ngIf="exams" class="mt-4">Exams from currently active exam period:</h4>
+
+<div class="d-flex justify-content-start" *ngIf="exams">
+    <ng-container *ngFor="let exam of exams">
+
+      <app-exam-card [exam]="exam" ></app-exam-card>
+    </ng-container>
+</div>

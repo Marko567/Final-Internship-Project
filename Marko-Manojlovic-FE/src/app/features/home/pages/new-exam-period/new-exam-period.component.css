@@ -1,4 +1,11 @@
 form {
-  background-color: rgb(247, 231, 207);
+  background-color: #466B51;
   border-radius: 1rem;
+  padding: 2rem 0;
+}
+.from-group {
+  margin: 1rem 0;
+}
+label {
+  color: white;
 }

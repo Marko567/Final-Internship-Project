@@ -2,8 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ConfirmOption } from 'src/app/core/enums';
 import { PageRequest, Student } from 'src/app/core/models';
 import { StudentService } from 'src/app/core/services/student.service';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsStudentComponent } from 'src/app/shared/components/details-student/details-student.component';
 import { EditStudentComponent } from 'src/app/shared/components/edit-student/edit-student.component';
 
@@ -21,7 +24,8 @@ export class StudentListComponent implements OnInit, OnDestroy {
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
 
-  constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute, private modalService: NgbModal) { }
+  constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute,
+     private modalService: NgbModal, private toastService: ToastService) { }
 
 
   ngOnDestroy(): void {
@@ -53,14 +57,22 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
   }
   onDelete(student: Student) {
+    const modalRef = this.modalService.open(ConfirmDialogComponent);
+    modalRef.componentInstance.message = `Are you sure you want to delete student <strong> ${student.firstname + ' ' + student.lastname} </strong>`;
+    modalRef.componentInstance.headerText = `Deleting student`;
+    modalRef.result.then(
+      result => result === ConfirmOption.OK && this.deleteSelectedStudent(student)
+    )
+  }
+
+  deleteSelectedStudent(student: Student) {
     this.httpStudent.deleteStudent(student).subscribe({
       next: response => {
+        this.toastService.showToast({header: 'Deleting professor', message: 'Professor deleted successfully', className:'bg-success'});
         this.loadStudents();
         console.log("Student ", student.studentId, " successfully deleted!");
       },
-      error: error => {
-        console.log("error", error);
-      }
+      error: error => this.toastService.showToast({header: 'Deleting student', message: 'Student was not deleted', className:'bg-danger'})
     })
   }
   ngOnInit(): void {

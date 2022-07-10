@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NewExamPeriodComponent } from './pages/new-exam-period/new-exam-period.component';
 import { GeneralOverviewComponent } from './pages/general-overview/general-overview.component';
 import { NewExamComponent } from './pages/new-exam/new-exam.component';
+import { ExamCardComponent } from './pages/exam-card/exam-card.component';
 
 
 
@@ -15,6 +16,7 @@ import { NewExamComponent } from './pages/new-exam/new-exam.component';
     NewExamPeriodComponent,
     GeneralOverviewComponent,
     NewExamComponent,
+    ExamCardComponent,
   ],
   imports: [
     CommonModule,

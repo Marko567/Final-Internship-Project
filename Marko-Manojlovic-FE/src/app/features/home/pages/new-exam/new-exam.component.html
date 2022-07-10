@@ -1,25 +1,39 @@
 <h3 class="text-center">Define New Exam</h3>
-<form>
-  <div>
-    <label for="subject">Subject:</label>
-    <select id="subject"  name="subject" [(ngModel)]="selectedSubject" (change)="onSubjectSelect()">
-      <option *ngFor="let subject of subjects" [ngValue]="subject">{{ subject.name }} </option>
-    </select>
-  </div>
-  <div>
-    <label for="professor">Professor: </label>
-    <select name="professor" id="professor">
-      <option *ngFor="let professor of professors" [ngValue]="professor"> {{ professor.firstname + ' ' + professor.lastname }} </option>
-    </select>
-  </div>
-  <div>
-    <label>Exam Period: </label>
-    <select>
-      <option *ngFor="let examPeriod of examPeriods" [ngValue]="examPeriod"> {{ examPeriod.name }}</option>
-    </select>
-  </div>
-  <div>
-    <label for="date">Date: </label>
-    <input type="date" id="date">
-  </div>
-</form>
+<div class="d-flex d-flex-column justify-content-center">
+  <form class="d-flex w-50 justify-content-center" [formGroup]="examForm" *ngIf="examForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-8 col-lg-6">
+
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <select id="subject" class="form-control" [(ngModel)]="selectedSubject" (change)="onSubjectSelect()" formControlName="subject">
+          <option *ngFor="let subject of subjects" [ngValue]="subject">{{ subject.name }} </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="professor">Professor: </label>
+        <select class="form-control" id="professor" formControlName="professor">
+          <option *ngFor="let professor of professors" [ngValue]="professor"> {{ professor.firstname + ' ' + professor.lastname }} </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="examPeriod">Exam Period: </label>
+        <select class="form-control" id="examPeriod" formControlName="examPeriod">
+          <option *ngFor="let examPeriod of examPeriods" [ngValue]="examPeriod"> {{ examPeriod.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date: </label>
+        <input class="form-control" type="date" id="date" formControlName="date">
+      </div>
+
+      <div class="d-flex flex-row-reverse mt-2">
+        <button type="submit" class="btn btn-dark" >Save</button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-dark" routerLink="/home/test/general-overview" queryParamsHandling="preserve">Get back</button>
+      </div>
+
+    </div>
+  </form>
+</div>

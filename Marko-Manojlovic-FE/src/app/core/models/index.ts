@@ -8,6 +8,8 @@ export * from './semester.model';
 export * from './exam-period-status.model';
 export * from './exam-period.model';
 export * from './engagement.model';
+export * from './toast.model';
+export * from './exam.model';
 
 export * from './page-request.dto';
 export * from './page-response.dto';

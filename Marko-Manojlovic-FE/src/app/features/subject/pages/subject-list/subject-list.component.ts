@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ConfirmOption } from 'src/app/core/enums';
 import { PageRequest, Subject } from 'src/app/core/models';
 import { HttpSubjectService } from 'src/app/core/services/http-subject.service';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsSubjectComponent } from 'src/app/shared/components/details-subject/details-subject.component';
 import { EditSubjectComponent } from 'src/app/shared/components/edit-subject/edit-subject.component';
 
@@ -21,7 +24,8 @@ export class SubjectListComponent implements OnInit {
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
 
-  constructor(private httpSubject: HttpSubjectService, private activeRoute: ActivatedRoute, private modalService: NgbModal) { }
+  constructor(private httpSubject: HttpSubjectService, private activeRoute: ActivatedRoute,
+     private modalService: NgbModal, private toastService: ToastService) { }
 
 
   ngOnDestroy(): void {
@@ -54,14 +58,22 @@ export class SubjectListComponent implements OnInit {
     modalRef.componentInstance.subject = subject;
   }
   onDelete(subject: Subject) {
+    const modalRef = this.modalService.open(ConfirmDialogComponent);
+    modalRef.componentInstance.message = `Are you sure you want to delete subject <strong> ${subject.name} </strong>`;
+    modalRef.componentInstance.headerText = `Deleting subject`;
+    modalRef.result.then(
+      result => result === ConfirmOption.OK && this.deleteSelectedSubject(subject)
+    )
+  }
+
+  deleteSelectedSubject(subject: Subject) {
     this.httpSubject.deleteSubject(subject).subscribe({
       next: response => {
+        this.toastService.showToast({header: 'Deleting subject', message: 'Subject deleted successfully', className:'bg-success'});
         this.loadSubjects();
         console.log("Subject ", subject.subjectId, " successfully deleted!");
       },
-      error: error => {
-        console.log("error", error);
-      }
+      error: error => this.toastService.showToast({header: 'Deleting subject', message: 'Subject was not deleted', className:'bg-danger'})
     })
   }
 

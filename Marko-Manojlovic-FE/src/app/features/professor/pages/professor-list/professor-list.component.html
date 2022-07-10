@@ -4,12 +4,8 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Professor ID</th>
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">Address</th>
-      <th scope="col">City</th>
       <th scope="col">Title</th>
       <th scope="col">Reelection Date</th>
       <th scope="col">Actions</th>
@@ -18,12 +14,8 @@
   <tbody>
     <tr *ngFor="let professor of professors; let i = index" >
       <td> {{i + 1}}</td>
-      <td>{{professor.professorId}}</td>
       <td>{{professor.firstname}}</td>
       <td>{{professor.lastname}}</td>
-      <td>{{professor.email}}</td>
-      <td>{{professor.address}}</td>
-      <td>{{professor.postalCode.name}}</td>
       <td>{{professor.title.name}}</td>
       <td>{{professor.reelectionDate}}</td>
       <td>

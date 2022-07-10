@@ -4,26 +4,20 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Student ID</th>
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
       <th scope="col">Index Year</th>
       <th scope="col">Index Number</th>
-      <th scope="col">City</th>
-      <th scope="col">Current Year of Study</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let student of students; let i = index" >
       <td> {{i + 1}}</td>
-      <td>{{student.studentId}}</td>
       <td>{{student.firstname}}</td>
       <td>{{student.lastname}}</td>
       <td>{{student.indexYear}}</td>
       <td>{{student.indexNumber}}</td>
-      <td>{{student.postalCode.name}}</td>
-      <td>{{student.currentYearOfStudy}}</td>
       <td>
         <button class="btn btn-outline-success"  (click)="onEditStudent(student)" ><bi name="pencil"></bi>Edit</button>
         <button class="btn btn-outline-success" (click)="onDetails(student)">Details</button>

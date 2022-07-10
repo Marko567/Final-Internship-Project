@@ -69,7 +69,6 @@ public class ProfessorRestController {
 	@PostMapping()
 	public @ResponseBody ResponseEntity<Object> saveProfessor(@Valid @RequestBody ProfessorDto professorDto) {
 		try {
-			System.out.println(professorDto);
 			ProfessorDto professor = professorService.saveProfessor(professorDto);
 			return ResponseEntity.status(HttpStatus.OK).body(professor);
 		} catch(EntityExistsException e) {

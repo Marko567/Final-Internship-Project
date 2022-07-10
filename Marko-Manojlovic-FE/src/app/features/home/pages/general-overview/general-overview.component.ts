@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ExamPeriod, ExamPeriodStatus } from 'src/app/core/models';
+import { Exam, ExamPeriod, ExamPeriodStatus } from 'src/app/core/models';
 import { HttpExamPeriodService } from 'src/app/core/services/http-exam-period.service';
+import { HttpExamService } from 'src/app/core/services/http-exam.service';
 import { ExamPeriodListComponent } from 'src/app/shared/components/exam-period-list/exam-period-list.component';
 
 @Component({
@@ -12,13 +13,17 @@ import { ExamPeriodListComponent } from 'src/app/shared/components/exam-period-l
 export class GeneralOverviewComponent implements OnInit {
   activeExamPeriod?: ExamPeriod;
   examPeriodList?: ExamPeriod[];
+  exams?: Exam[] = [];
 
-  constructor(private httpExamPeriod: HttpExamPeriodService,  private modalService: NgbModal) { }
+  constructor(private httpExamPeriod: HttpExamPeriodService,  private modalService: NgbModal,
+    private httpExam: HttpExamService) { }
 
   ngOnInit(): void {
     this.loadActiveExamPeriod();
     this.loadExamPeriodList();
+    this.loadExamsFromActiveExamPeriod();
   }
+
   loadActiveExamPeriod() {
     this.httpExamPeriod.getActiveExamPeriod().subscribe({
       next: response => {
@@ -28,6 +33,9 @@ export class GeneralOverviewComponent implements OnInit {
         console.log("Error", error);
       }
     });
+  }
+  loadExamsFromActiveExamPeriod() {
+    this.httpExam.getExamsFromActiveExamPeriod().subscribe(response => this.exams = response);
   }
 
   loadExamPeriodList() {

@@ -13,6 +13,8 @@ import { EditProfessorComponent } from './components/edit-professor/edit-profess
 import { DetailsSubjectComponent } from './components/details-subject/details-subject.component';
 import { EditSubjectComponent } from './components/edit-subject/edit-subject.component';
 import { ExamPeriodListComponent } from './components/exam-period-list/exam-period-list.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { GlobalToastComponent } from './components/global-toast/global-toast.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { ExamPeriodListComponent } from './components/exam-period-list/exam-peri
     EditProfessorComponent,
     DetailsSubjectComponent,
     EditSubjectComponent,
-    ExamPeriodListComponent
+    ExamPeriodListComponent,
+    ConfirmDialogComponent,
+    GlobalToastComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +62,9 @@ import { ExamPeriodListComponent } from './components/exam-period-list/exam-peri
     HeaderComponent,
     DetailsProfessorComponent,
     DetailsSubjectComponent,
-    BootstrapSetupIconsModule
+    BootstrapSetupIconsModule,
+    ConfirmDialogComponent,
+    GlobalToastComponent
   ]
 })
 export class SharedModule { }

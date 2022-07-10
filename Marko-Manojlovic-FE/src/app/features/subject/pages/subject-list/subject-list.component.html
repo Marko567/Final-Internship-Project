@@ -4,9 +4,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Subject ID</th>
       <th scope="col">Name</th>
-      <th scope="col">Description</th>
       <th scope="col">NoOfEsp</th>
       <th scope="col">Semester</th>
       <th scope="col">Actions</th>
@@ -15,9 +13,7 @@
   <tbody>
     <tr *ngFor="let subject of subjects; let i = index" >
       <td> {{i + 1}}</td>
-      <td>{{subject.subjectId}}</td>
       <td>{{subject.name}}</td>
-      <td>{{subject.description}}</td>
       <td>{{subject.noOfEsp}}</td>
       <td>{{subject.semesterName}}</td>
       <td>
