@@ -24,9 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN")
-//                .and()
-//                .withUser("user").password("user").roles("USER");
         auth.userDetailsService(userDetailsService);
     }
 
@@ -46,10 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.cors().configurationSource(corsConfigurationSource());
         http.csrf().disable().authorizeRequests()
         		.antMatchers("/auth/login/**").permitAll()
-                .antMatchers("/manufacturers/**").authenticated()
-                //.antMatchers("/cities/**").authenticated()
+        		.anyRequest().authenticated()
                 .and()
                 .httpBasic();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/login")
+//                .defaultSuccessUrl("/home/test/general-overview");
     }
     
     @Bean

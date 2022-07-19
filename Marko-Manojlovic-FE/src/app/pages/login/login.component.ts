@@ -12,6 +12,7 @@ import { UserLoginDataService } from 'src/app/core/services/user-login-data.serv
 export class LoginComponent implements OnInit {
 
   loginForm?: FormGroup;
+  badCredentials = false;
 
   constructor(
     private fb: FormBuilder,
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home/test/general-overview']);
           },
           error: error=> {
+            this.badCredentials = true;
             console.error('error:', error.error);
           }
         }

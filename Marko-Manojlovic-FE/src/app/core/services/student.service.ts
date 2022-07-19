@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PageDto, PageRequest, Student } from '../models';
+import { UserLoginDataService } from './user-login-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private userLoginData: UserLoginDataService) {
 
   }
   public getStudents(): Observable<Student[]> {
@@ -26,6 +27,9 @@ export class StudentService {
       .set('sortBy', pageRequest.sortBy)
       .set('sortOrder', pageRequest.sortOrder);
 
+    //let headers = new HttpHeaders();
+    //headers = headers.set('Authorization', `${this.userLoginData.token}`);
+
     return this.httpClient.get<PageDto<Student>>(`${environment.serverUrl}/students/filter`, {params});
   }
 
@@ -34,7 +38,6 @@ export class StudentService {
   }
 
   updateStudent(student: Student) {
-    //console.log("Student pred odlazak na server: ", student);
     return this.httpClient.put<Student>(`${environment.serverUrl}/students`, student);
   }
 
