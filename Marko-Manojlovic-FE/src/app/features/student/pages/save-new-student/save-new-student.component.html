@@ -98,12 +98,12 @@
 
       <div class="from-group">
         <label for="postalCode">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-        <select name="postalCode" id="postalCode"  formControlName="postalCode">
+        <select class="form-control" id="postalCode"  formControlName="postalCode">
           <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
         </select>
       </div>
       <div class="d-flex flex-row-reverse mt-2">
-        <button type="submit" class="btn btn-outline-success" >Save</button>
+        <button type="submit" [disabled]="!studentForm.valid" class="btn btn-outline-success" >Save</button>
         <button class="btn btn-outline-success" routerLink="/student/student-list" queryParamsHandling="preserve">Get back</button>
       </div>
     </div>

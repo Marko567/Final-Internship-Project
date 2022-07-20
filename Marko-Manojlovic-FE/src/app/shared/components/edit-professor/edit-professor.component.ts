@@ -51,7 +51,7 @@ export class EditProfessorComponent implements OnInit, OnDestroy {
       email: [professor?.email, Validators.email],
       address: [professor?.address, Validators.minLength(3)],
       postalCode: [professor?.postalCode.zipCode, Validators.required],
-      title: [professor?.title?.name, Validators.required],
+      title: [professor?.title?.titleId, Validators.required],
       phone: [professor?.phone, Validators.minLength(9)],
       reelectionDate: [professor?.reelectionDate, Validators.required]
     })
@@ -61,7 +61,24 @@ export class EditProfessorComponent implements OnInit, OnDestroy {
     if(this.professorForm?.invalid) {
       return;
     }
-    const formData = this.professorForm?.getRawValue() as Professor;
+    let formData = this.professorForm?.getRawValue();
+
+    let zipCode = formData.postalCode;
+    let titleId = formData.title;
+
+    let city;
+    if(this.cities) {
+      city = this.cities.find(x => x.zipCode === zipCode);
+    }
+
+    let title;
+    if(this.titles) {
+      title = this.titles.find(x => x.titleId === titleId)
+    }
+
+    formData.title = title;
+    formData.postalCode = city;
+
     this.professorService.updateProfessor(formData).subscribe({
       next: response => {
         this.modal.close('yes');

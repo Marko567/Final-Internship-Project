@@ -51,19 +51,19 @@
         </div>
 
         <div class="from-group">
-          <label for="semesterName">Semester: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-          <select name="semesterName" id="semesterName"  formControlName="semesterName">
-            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester.semesterName}}</option>
+          <label for="semester">Semester: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <select name="semester" id="semester"  formControlName="semester">
+            <option *ngFor="let semester of semesters" [ngValue]="semester.semesterEntityId">{{semester.semesterName}}</option>
           </select>
-          <div class="alert alert-danger" *ngIf="hasErrors('semesterName')">
-            <span *ngIf="hasErrors('semesterName','required')" >
+          <div class="alert alert-danger" *ngIf="hasErrors('semester')">
+            <span *ngIf="hasErrors('semester','required')" >
               <small>This field is required</small>
             </span>
           </div>
         </div>
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-outline-dark">Save</button>
+          <button type="submit" [disabled]="!subjectForm.valid" class="btn btn-outline-dark">Save</button>
           <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
         </div>
       </div>

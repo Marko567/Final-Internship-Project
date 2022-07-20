@@ -105,8 +105,7 @@
         <div class="from-group">
           <label for="postalCode">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
           <select name="postalCode" id="postalCode"  formControlName="postalCode">
-            <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-            <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
+            <option *ngFor="let city of cities" [ngValue]="city.zipCode">{{city.name}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="hasErrors('postalCode')">
             <span *ngIf="hasErrors('postalCode', 'required')">
@@ -115,7 +114,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-outline-dark">Save</button>
+          <button type="submit" [disabled]="!studentForm.valid" class="btn btn-outline-dark">Save</button>
           <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
         </div>
       </div>

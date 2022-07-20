@@ -1,6 +1,7 @@
 package com.eng.marko.manojlovic.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,15 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public List<City> findAll() {
 		return cityRepository.findAll();
+	}
+
+
+	@Override
+	public Optional<City> findById(Long zipCode) {
+		Optional<City> existingCity = cityRepository.findById(zipCode);
+		if(existingCity.isPresent()) {
+			return existingCity;
+		}
+		return Optional.empty();
 	}
 }

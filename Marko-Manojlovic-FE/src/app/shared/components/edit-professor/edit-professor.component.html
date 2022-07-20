@@ -59,8 +59,7 @@
         <div class="from-group">
           <label for="postalCode">City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
           <select name="postalCode" id="postalCode"  formControlName="postalCode">
-            <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-            <!--ima li boljeg nacina od ovog da postavljam ngValue da bude city, kad postavim samo id imam gresku ?-->
+            <option *ngFor="let city of cities" [ngValue]="city.zipCode">{{city.name}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="hasErrors('postalCode')">
             <span *ngIf="hasErrors('postalCode','required')" >
@@ -70,9 +69,8 @@
         </div>
         <div class="from-group">
           <label for="title">Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-          <select name="title" id="title"  formControlName="title">
-            <option *ngFor="let title of titles" [ngValue]="title">{{title.name}}</option>
-            <!--ima li boljeg nacina od ovog da postavljam ngValue da bude title, kad postavim samo id imam gresku ?-->
+          <select id="title"  formControlName="title">
+            <option *ngFor="let title of titles" [ngValue]="title.titleId">{{title.name}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="hasErrors('title')">
             <span *ngIf="hasErrors('title','required')" >
@@ -101,7 +99,7 @@
         </div>
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-outline-dark">Save</button>
+          <button type="submit" [disabled]="!professorForm.valid" class="btn btn-outline-dark">Save</button>
           <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
         </div>
       </div>

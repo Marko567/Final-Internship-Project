@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { City, Student } from 'src/app/core/models';
 import { HttpCityService } from 'src/app/core/services/http-city.service';
 import { StudentService } from 'src/app/core/services/student.service';
+import { StudentRoutingModule } from 'src/app/features/student/student-routing.module';
 
 @Component({
   selector: 'app-edit-student',
@@ -13,7 +14,10 @@ import { StudentService } from 'src/app/core/services/student.service';
 })
 export class EditStudentComponent implements OnInit, OnDestroy {
 
-  student?: Student;
+  student: Student = {studentId: 0, firstname: "f", lastname: "l", indexNumber: "0000",
+   indexYear: 2001, email: "f.l@c.com", address: "mvn jjijgq 76",
+    postalCode: {zipCode: "11000", name: "Beograd"}, currentYearOfStudy: 1};
+
   studentForm?: FormGroup;
   cities?: City[];
   subsciptions = new Subscription();
@@ -34,7 +38,7 @@ export class EditStudentComponent implements OnInit, OnDestroy {
       this.cityService.getAll().subscribe(cities => this.cities = cities)
     );
   }
-  buildForm(student: Student | undefined) {
+  buildForm(student: Student) {
     this.studentForm = this.fb.group({
       studentId: [student?.studentId],
       firstname: [student?.firstname, [Validators.required, Validators.minLength(3)]],
@@ -43,16 +47,24 @@ export class EditStudentComponent implements OnInit, OnDestroy {
       indexYear: [student?.indexYear, [Validators.required, Validators.min(2000), Validators.max(2100)]],
       email: [student?.email, Validators.email],
       address: [student?.address, Validators.minLength(3)],
-      postalCode: [student?.postalCode.zipCode, Validators.required],
+      postalCode: [student.postalCode.zipCode, Validators.required],
       currentYearOfStudy: [student?.currentYearOfStudy, Validators.required]
-    })
+    });
   }
 
   onSubmit() {
     if(this.studentForm?.invalid) {
       return;
     }
-    const formData = this.studentForm?.getRawValue() as Student;
+    let formData = this.studentForm?.getRawValue();
+
+    let zipCode = formData.postalCode;
+    let city;
+    if(this.cities) {
+      city = this.cities.find(x => x.zipCode === zipCode);
+    }
+    formData.postalCode = city;
+
     this.studentService.updateStudent(formData).subscribe({
       next: response => {
         this.modal.close('yes');

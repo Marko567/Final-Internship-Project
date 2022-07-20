@@ -43,7 +43,7 @@ export class EditSubjectComponent implements OnInit {
       description: [subject?.description],
       noOfEsp: [subject?.noOfEsp, Validators.required],
       yearOfStudy: [subject?.yearOfStudy, Validators.required],
-      semesterName: [subject?.semesterName, Validators.required],
+      semester: [subject?.semesterEntityId, Validators.required],
     })
   }
 
@@ -53,12 +53,20 @@ export class EditSubjectComponent implements OnInit {
     }
     const formData = this.subjectForm?.getRawValue();
 
-    // zbog izmene u SubjectDto, mora ovako
-    const semesterName = formData.semesterName;
-    formData.semesterName = semesterName.semesterName;
-    formData.semesterEntityId = semesterName.semesterEntityId;
+    let semesterId = formData.semester;
 
-    this.subjectService.updateSubject(formData).subscribe({
+    let semester;
+    if(this.semesters) {
+      semester = this.semesters.find(x => x.semesterEntityId === semesterId);
+    }
+
+    // zbog izmene u SubjectDto, mora ovako
+    const customizedFormData = {name: formData.name, description: formData.description,
+       noOfEsp: formData.noOfEsp, subjectId: formData.subjectId,
+        yearOfStudy: formData.yearOfStudy, semesterEntityId: semester?.semesterEntityId,
+         semesterName: semester?.semesterName} as Subject;
+
+    this.subjectService.updateSubject(customizedFormData).subscribe({
       next: response => {
         this.modal.close('yes');
         console.log("RESPONSE:", response);

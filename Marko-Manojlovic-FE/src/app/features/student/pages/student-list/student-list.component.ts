@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsStudentComponent } from 'src/app/shared/components/details-student/details-student.component';
 import { EditStudentComponent } from 'src/app/shared/components/edit-student/edit-student.component';
+import { SortableHeaderDirective, SortEvent } from 'src/app/shared/directives/sortable-header.directive';
 
 @Component({
   selector: 'app-student-list',
@@ -22,6 +23,9 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
   pageInfo: PageRequest = {pageNo: 1, pageSize:2, totalItems: 10, sortBy: 'firstname', sortOrder:'asc'}
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
+
+  @ViewChildren(SortableHeaderDirective)
+  headers?:QueryList<SortableHeaderDirective>;
 
 
   constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute,
@@ -68,7 +72,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
   deleteSelectedStudent(student: Student) {
     this.httpStudent.deleteStudent(student).subscribe({
       next: response => {
-        this.toastService.showToast({header: 'Deleting professor', message: 'Professor deleted successfully', className:'bg-success'});
+        this.toastService.showToast({header: 'Deleting student', message: 'Student deleted successfully', className:'bg-success'});
         this.loadStudents();
         console.log("Student ", student.studentId, " successfully deleted!");
       },
@@ -82,6 +86,19 @@ export class StudentListComponent implements OnInit, OnDestroy {
       this.pageInfo.pageNo = pageNoParam;
       this.pageInfo.pageSize = Number(this.activeRoute.snapshot.queryParamMap.get('pageSize'));
     }
+    this.loadStudents();
+  }
+
+  onSort(event: SortEvent) {
+    console.log(event);
+    // Resetujemo vrednost direction attributa colona na koje nije kliknuto
+    this.headers?.forEach( sortableDirective =>
+      (sortableDirective.sortable != event.column)  && (sortableDirective.direction = '')
+     )
+
+    this.pageInfo.pageNo = 1;
+    this.pageInfo.sortBy = event.column;
+    this.pageInfo.sortOrder = event.direction;
     this.loadStudents();
   }
 

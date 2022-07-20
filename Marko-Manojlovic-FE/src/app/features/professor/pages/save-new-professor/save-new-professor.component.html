@@ -116,7 +116,7 @@
 
 
       <div class="d-flex flex-row-reverse mt-2">
-        <button type="submit" class="btn btn-outline-success" >Save</button>
+        <button type="submit" [disabled]="!professorForm.valid" class="btn btn-outline-success" >Save</button>
         <button class="btn btn-outline-success" routerLink="/professor/professor-list" queryParamsHandling="preserve">Get back</button>
       </div>
     </div>

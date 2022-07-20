@@ -15,6 +15,7 @@ import { EditSubjectComponent } from './components/edit-subject/edit-subject.com
 import { ExamPeriodListComponent } from './components/exam-period-list/exam-period-list.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { GlobalToastComponent } from './components/global-toast/global-toast.component';
+import { SortableHeaderDirective } from './directives/sortable-header.directive';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { GlobalToastComponent } from './components/global-toast/global-toast.com
     EditSubjectComponent,
     ExamPeriodListComponent,
     ConfirmDialogComponent,
-    GlobalToastComponent
+    GlobalToastComponent,
+    SortableHeaderDirective
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { GlobalToastComponent } from './components/global-toast/global-toast.com
     DetailsSubjectComponent,
     BootstrapSetupIconsModule,
     ConfirmDialogComponent,
-    GlobalToastComponent
+    GlobalToastComponent,
+    SortableHeaderDirective
   ]
 })
 export class SharedModule { }

@@ -17,4 +17,8 @@ export class HttpCityService {
 
     return this.httpClient.get<City[]>(`${environment.serverUrl}/cities/all`, { headers });
   }
+
+  getById(zipCode: number) {
+    return this.httpClient.get<City>(`${environment.serverUrl}/cities/${zipCode}`);
+  }
 }

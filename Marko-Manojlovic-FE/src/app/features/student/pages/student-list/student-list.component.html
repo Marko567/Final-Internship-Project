@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Firstname</th>
+      <th sortable="firstname" direction="asc" (sort)="onSort($event)" scope="col">
       <th scope="col">Lastname</th>
       <th scope="col">Index Year</th>
       <th scope="col">Index Number</th>
