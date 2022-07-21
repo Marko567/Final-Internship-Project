@@ -27,7 +27,6 @@ export class StudentListComponent implements OnInit, OnDestroy {
   @ViewChildren(SortableHeaderDirective)
   headers?:QueryList<SortableHeaderDirective>;
 
-
   constructor(private httpStudent: StudentService, private activeRoute: ActivatedRoute,
      private modalService: NgbModal, private toastService: ToastService) { }
 

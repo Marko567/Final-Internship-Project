@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 
 export type SortDirection = 'asc' | 'desc' | '';
@@ -19,7 +19,7 @@ export class SortableHeaderDirective {
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEvent>();
 
-  constructor(private el: ElementRef) { }
+  constructor() { }
 
 
   @HostBinding('class.asc')
@@ -37,7 +37,8 @@ export class SortableHeaderDirective {
       this.direction = ''
     }
 
-    this.el.nativeElement;
     this.sort.emit({column: this.sortable, direction: this.direction});
   }
+
+
 }

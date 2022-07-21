@@ -4,9 +4,9 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">NoOfEsp</th>
-      <th scope="col">Semester</th>
+      <th scope="col" sortable="name" direction="asc" (sort)="onSort($event)">Name</th>
+      <th scope="col" sortable="noOfEsp" direction="" (sort)="onSort($event)">NoOfEsp</th>
+      <th scope="col" sortable="semester" direction="" (sort)="onSort($event)">Semester</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>

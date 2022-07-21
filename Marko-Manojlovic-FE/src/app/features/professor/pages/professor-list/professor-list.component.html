@@ -4,10 +4,10 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Firstname</th>
-      <th scope="col">Lastname</th>
-      <th scope="col">Title</th>
-      <th scope="col">Reelection Date</th>
+      <th scope="col" sortable="firstname" direction="asc" (sort)="onSort($event)">Firstname</th>
+      <th scope="col" sortable="lastname" direction="" (sort)="onSort($event)">Lastname</th>
+      <th scope="col" sortable="title" direction="" (sort)="onSort($event)">Title</th>
+      <th scope="col" sortable="reelectionDate" direction="" (sort)="onSort($event)">Reelection Date</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>

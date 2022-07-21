@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsProfessorComponent } from 'src/app/shared/components/details-professor/details-professor.component';
 import { EditProfessorComponent } from 'src/app/shared/components/edit-professor/edit-professor.component';
+import { SortableHeaderDirective, SortEvent } from 'src/app/shared/directives/sortable-header.directive';
 
 @Component({
   selector: 'app-professor-list',
@@ -21,6 +22,8 @@ export class ProfessorListComponent implements OnInit, OnDestroy {
   pageInfo: PageRequest = {pageNo: 1, pageSize:2, totalItems: 10, sortBy: 'firstname', sortOrder:'asc'}
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
+  @ViewChildren(SortableHeaderDirective)
+  headers?:QueryList<SortableHeaderDirective>;
 
   constructor(private professorService: HttpProfessorService, private activeRoute: ActivatedRoute,
      private modalService: NgbModal, private toastService: ToastService) { }
@@ -81,6 +84,19 @@ export class ProfessorListComponent implements OnInit, OnDestroy {
       error: error => this.toastService.showToast({header: 'Deleting professor', message: 'Professor was not deleted', className:'bg-danger'})
     })
   }
+  onSort(event: SortEvent) {
+    console.log(event);
+    // Resetujemo vrednost direction attributa colona na koje nije kliknuto
+    this.headers?.forEach( sortableDirective =>
+      (sortableDirective.sortable != event.column)  && (sortableDirective.direction = '')
+     )
+
+    this.pageInfo.pageNo = 1;
+    this.pageInfo.sortBy = event.column;
+    this.pageInfo.sortOrder = event.direction;
+    this.loadProfessors();
+  }
+
   loadProfessors() {
     this.subscriptions.add(
       this.professorService.getByPage(this.pageInfo)

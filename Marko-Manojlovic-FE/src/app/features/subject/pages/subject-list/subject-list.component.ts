@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DetailsSubjectComponent } from 'src/app/shared/components/details-subject/details-subject.component';
 import { EditSubjectComponent } from 'src/app/shared/components/edit-subject/edit-subject.component';
+import { SortableHeaderDirective, SortEvent } from 'src/app/shared/directives/sortable-header.directive';
 
 @Component({
   selector: 'app-subject-list',
@@ -23,6 +24,8 @@ export class SubjectListComponent implements OnInit {
   pageInfo: PageRequest = {pageNo: 1, pageSize:2, totalItems: 10, sortBy: 'name', sortOrder:'asc'}
   availablePageSizes = [2, 3, 5, 10, 15,20 , 25, 30]
 
+  @ViewChildren(SortableHeaderDirective)
+  headers?:QueryList<SortableHeaderDirective>;
 
   constructor(private httpSubject: HttpSubjectService, private activeRoute: ActivatedRoute,
      private modalService: NgbModal, private toastService: ToastService) { }
@@ -86,6 +89,18 @@ export class SubjectListComponent implements OnInit {
     }
     this.loadSubjects();
     console.log(this.subjects);
+  }
+  onSort(event: SortEvent) {
+    console.log(event);
+    // Resetujemo vrednost direction attributa colona na koje nije kliknuto
+    this.headers?.forEach( sortableDirective =>
+      (sortableDirective.sortable != event.column)  && (sortableDirective.direction = '')
+     )
+
+    this.pageInfo.pageNo = 1;
+    this.pageInfo.sortBy = event.column;
+    this.pageInfo.sortOrder = event.direction;
+    this.loadSubjects();
   }
 
   loadSubjects() {
