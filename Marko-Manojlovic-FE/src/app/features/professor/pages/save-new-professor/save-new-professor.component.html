@@ -101,14 +101,14 @@
           [ngModelOptions]="{standalone: true}"
         >
           <option *ngFor="let subject of subjects" [ngValue]="subject">
-            {{ subject.name + " " + subject.semesterName }}
+            {{ subject.name + " " + subject.semester.name }}
           </option>
         </select>
         <button type="button" class="btn btn-secondary" (click)="addSubject()">Add</button>
 
         <div class="d-flex flex-row" >
           <span *ngFor="let subject of selectedSubjects;let i = index" class="badge rounded-pill bg-secondary">
-            {{ subject.name + " " + subject.semesterName }}
+            {{ subject.name + " " + subject.semester.name }}
            <span class="chip-delete" (click)="removeSubject(i)">X</span>
           </span>
         </div>

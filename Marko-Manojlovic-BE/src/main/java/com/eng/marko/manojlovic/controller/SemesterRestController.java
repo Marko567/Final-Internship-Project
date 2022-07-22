@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eng.marko.manojlovic.entity.SemesterEntity;
+import com.eng.marko.manojlovic.dto.SemesterDto;
 import com.eng.marko.manojlovic.service.SemesterService;
 
 @RestController
@@ -19,7 +19,7 @@ public class SemesterRestController {
 	private SemesterService semesterService;
 	
 	@GetMapping("all")
-	public @ResponseBody ResponseEntity<List<SemesterEntity>> findAll() {
+	public @ResponseBody ResponseEntity<List<SemesterDto>> findAll() {
 		return ResponseEntity.ok(semesterService.findAll());
 	}
 }

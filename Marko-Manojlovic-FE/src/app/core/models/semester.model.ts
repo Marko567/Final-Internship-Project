@@ -1,4 +1,4 @@
 export interface Semester {
-  semesterEntityId: number;
-  semesterName: string;
+  id: number;
+  name: string;
 }

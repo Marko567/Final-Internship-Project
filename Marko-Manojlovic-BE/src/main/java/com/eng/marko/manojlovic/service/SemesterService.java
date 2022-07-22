@@ -2,8 +2,8 @@ package com.eng.marko.manojlovic.service;
 
 import java.util.List;
 
-import com.eng.marko.manojlovic.entity.SemesterEntity;
+import com.eng.marko.manojlovic.dto.SemesterDto;
 
 public interface SemesterService {
-	List<SemesterEntity> findAll();
+	List<SemesterDto> findAll();
 }

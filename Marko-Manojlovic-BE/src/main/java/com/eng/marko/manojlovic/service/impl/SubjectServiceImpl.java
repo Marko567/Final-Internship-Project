@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,6 @@ import com.eng.marko.manojlovic.entity.Subject;
 import com.eng.marko.manojlovic.exception.EntityExistsException;
 import com.eng.marko.manojlovic.exception.InvalidEntityException;
 import com.eng.marko.manojlovic.mapper.SubjectMapStructMapper;
-import com.eng.marko.manojlovic.mapper.SubjectMapper;
 import com.eng.marko.manojlovic.repository.SubjectRepository;
 import com.eng.marko.manojlovic.service.SubjectService;
 
@@ -25,9 +23,9 @@ import com.eng.marko.manojlovic.service.SubjectService;
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
 	private final SubjectRepository subjectRepository;
-	private final SubjectMapper subjectMapper;
+	private final SubjectMapStructMapper subjectMapper;
 	
-	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
+	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapStructMapper subjectMapper) {
 		super();
 		this.subjectRepository = subjectRepository;
 		this.subjectMapper = subjectMapper;
@@ -52,7 +50,7 @@ public class SubjectServiceImpl implements SubjectService {
 	
 	@Override
 	public SubjectDto saveSubject(SubjectDto subjectDto) throws EntityExistsException {
-		return subjectMapper.toDtoNoId(subjectRepository.save(subjectMapper.toEntityNoId(subjectDto)));
+		return subjectMapper.toDto(subjectRepository.save(subjectMapper.toEntityNoId(subjectDto)));
 	}
 
 	@Override

@@ -43,7 +43,7 @@ export class EditSubjectComponent implements OnInit {
       description: [subject?.description],
       noOfEsp: [subject?.noOfEsp, Validators.required],
       yearOfStudy: [subject?.yearOfStudy, Validators.required],
-      semester: [subject?.semesterEntityId, Validators.required],
+      semester: [subject?.semester.id, Validators.required],
     })
   }
 
@@ -57,14 +57,13 @@ export class EditSubjectComponent implements OnInit {
 
     let semester;
     if(this.semesters) {
-      semester = this.semesters.find(x => x.semesterEntityId === semesterId);
+      semester = this.semesters.find(x => x.id === semesterId);
     }
 
     // zbog izmene u SubjectDto, mora ovako
     const customizedFormData = {name: formData.name, description: formData.description,
        noOfEsp: formData.noOfEsp, subjectId: formData.subjectId,
-        yearOfStudy: formData.yearOfStudy, semesterEntityId: semester?.semesterEntityId,
-         semesterName: semester?.semesterName} as Subject;
+        yearOfStudy: formData.yearOfStudy, semester: semester} as Subject;
 
     this.subjectService.updateSubject(customizedFormData).subscribe({
       next: response => {

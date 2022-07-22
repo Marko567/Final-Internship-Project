@@ -53,7 +53,7 @@
         <div class="from-group">
           <label for="semester">Semester: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
           <select name="semester" id="semester"  formControlName="semester">
-            <option *ngFor="let semester of semesters" [ngValue]="semester.semesterEntityId">{{semester.semesterName}}</option>
+            <option *ngFor="let semester of semesters" [ngValue]="semester.id">{{semester.name}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="hasErrors('semester')">
             <span *ngIf="hasErrors('semester','required')" >

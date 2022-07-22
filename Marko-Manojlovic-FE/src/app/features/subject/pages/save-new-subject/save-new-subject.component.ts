@@ -18,19 +18,41 @@ export class SaveNewSubjectComponent implements OnInit {
      private subjectService: HttpSubjectService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadSemesters();
     this.buildForm();
-    this.semesterService.getAll().subscribe(response => this.semesters = response);
   }
-
+  loadSemesters() {
+    this.semesterService.getAll().subscribe({
+      next: response =>  {
+         this.semesters = response;
+         console.log(response);
+      },
+      error: error => {
+        console.log("Error ocured while loading semesters...", error);
+      }
+    });
+  }
   onSubmit() {
     if(this.subjectForm?.invalid) {
       return;
     }
-    const formData =  this.subjectForm?.getRawValue();
+    let formData =  this.subjectForm?.getRawValue();
 
-    const semesterName = formData.semesterName;
-    formData.semesterName = semesterName.semesterName;
-    formData.semesterEntityId = semesterName.semesterEntityId;
+    console.log(formData);
+
+    const semesterId = formData.semester;
+
+    let semester;
+    if(this.semesters) {
+      semester = this.semesters.find(x => x.id === semesterId);
+    }
+
+    formData.semester = semester;
+
+    console.log("Form data pred slanje serveru", formData);
+
+    // formData.semesterName = semesterName.semesterName;
+    // formData.semesterEntityId = semesterName.semesterEntityId;
 
 
     this.subjectService.saveSubject(formData).subscribe({
@@ -50,7 +72,7 @@ export class SaveNewSubjectComponent implements OnInit {
       description: [''],
       noOfEsp: ['', Validators.required],
       yearOfStudy: ['', Validators.required],
-      semesterName: ['', Validators.required],
+      semester: ['', Validators.required],
     })
   }
 

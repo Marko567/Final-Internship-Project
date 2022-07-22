@@ -31,17 +31,24 @@ public interface SubjectMapStructMapper {
 	})
 	Subject toEntity(SubjectDto dto);
 	
+	@Mappings({
+		@Mapping(target="name", source="dto.name"),
+		@Mapping(target="description", source="dto.description"),
+		@Mapping(target="noOfEsp", source="dto.noOfEsp"),
+		@Mapping(target="yearOfStudy", source="dto.yearOfStudy"),
+	})
+	Subject toEntityNoId(SubjectDto dto);
 	
 	@Mappings({
 		@Mapping(target="id", source="semesterEntityId"),
-		@Mapping(target="name", source="semesterEntityName")
+		@Mapping(target="name", source="semesterName")
 	})
 	SemesterDto toDto(SemesterEntity entity);
 	
 	
 	@Mappings({
 		@Mapping(target="semesterEntityId", source="id"),
-		@Mapping(target="semesterEntityName", source="name")
+		@Mapping(target="semesterName", source="name")
 	})
 	SemesterEntity toEntity(SemesterDto dto);
 }
