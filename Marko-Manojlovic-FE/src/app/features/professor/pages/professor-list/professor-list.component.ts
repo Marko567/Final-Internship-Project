@@ -55,11 +55,10 @@ export class ProfessorListComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.professor = professor;
 
     modalRef.result.then((yes) => {
-      console.log('Yes click');
       console.log("YES:", yes);
       this.loadProfessors();
     },
-    (cancel) => {console.log("cancel click")})
+    (cancel) => {console.log("X click")})
   }
   onDetails(professor: Professor) {
     const modalRef = this.modalService.open(DetailsProfessorComponent);

@@ -88,7 +88,6 @@ export class SubjectListComponent implements OnInit {
       this.pageInfo.pageSize = Number(this.activeRoute.snapshot.queryParamMap.get('pageSize'));
     }
     this.loadSubjects();
-    console.log(this.subjects);
   }
   onSort(event: SortEvent) {
     console.log(event);

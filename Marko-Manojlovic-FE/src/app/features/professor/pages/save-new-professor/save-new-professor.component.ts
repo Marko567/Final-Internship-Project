@@ -6,11 +6,13 @@ import { HttpCityService } from 'src/app/core/services/http-city.service';
 import { HttpProfessorService } from 'src/app/core/services/http-professor.service';
 import { HttpSubjectService } from 'src/app/core/services/http-subject.service';
 import { HttpTitleService } from 'src/app/core/services/http-title.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-save-new-professor',
   templateUrl: './save-new-professor.component.html',
   styleUrls: ['./save-new-professor.component.css']
+  //providers: [HttpCityService]
 })
 export class SaveNewProfessorComponent implements OnInit {
   professorForm?: FormGroup;
@@ -22,7 +24,8 @@ export class SaveNewProfessorComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private cityService: HttpCityService,
      private professorService: HttpProfessorService, private router: Router,
-     private titleService: HttpTitleService, private subjectService: HttpSubjectService) { }
+     private titleService: HttpTitleService, private subjectService: HttpSubjectService,
+     private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -36,18 +39,21 @@ export class SaveNewProfessorComponent implements OnInit {
     if(this.professorForm?.invalid) {
       return;
     }
+
     const formData =  this.professorForm?.getRawValue() as Professor;
     console.log("FORM DATA: ", formData);
 
     this.professorService.saveProfessor(formData).subscribe({
       next: response => {
         console.log("response", response);
+        this.router.navigate(['/professor/professor-list']);
       },
       error: error => {
         console.log("Error occured while saving student...", error);
+        this.toastService.showToast({header: 'Saving professor', message: 'Professor is not saved, error ocured during saving!', className:'bg-danger'});
       }
     })
-    this.router.navigate(['/professor/professor-list']);
+
   }
 
   addSubject() {

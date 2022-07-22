@@ -22,38 +22,49 @@ public class SubjectDto {
 
 	@NotNull(message = "Year of Study is required!")
 	private Integer yearOfStudy;
-	
-	@NotEmpty(message="Semester is required!")
-	private SemesterDto semester;
+//	
+//	@NotEmpty(message="Semester is required!")
+//	private SemesterDto semester;
 
-//	private Integer semesterEntityId;
-//
-//	@NotEmpty(message = "Semester name is required!")
-//	private String semesterName;
+	private Integer semesterEntityId;
+
+	@NotEmpty(message = "Semester name is required!")
+	private String semesterName;
 
 	public SubjectDto() {
 		super();
 	}
 
-	public SubjectDto(String name, String description, Integer noOfEsp, Integer yearOfStudy, SemesterDto semester) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.noOfEsp = noOfEsp;
-		this.yearOfStudy = yearOfStudy;
-		this.semester = semester;
-	}
-
-	public SubjectDto(Long subjectId, String name, String description, Integer noOfEsp, Integer yearOfStudy,
-			SemesterDto semester) {
+	public SubjectDto(Long subjectId,
+			String name,
+			String description, Integer noOfEsp,
+			Integer yearOfStudy, Integer semesterEntityId,
+			String semesterName) {
 		super();
 		this.subjectId = subjectId;
 		this.name = name;
 		this.description = description;
 		this.noOfEsp = noOfEsp;
 		this.yearOfStudy = yearOfStudy;
-		this.semester = semester;
+		this.semesterEntityId = semesterEntityId;
+		this.semesterName = semesterName;
 	}
+	
+	public SubjectDto(
+			String name,
+			String description, Integer noOfEsp,
+			Integer yearOfStudy, Integer semesterEntityId,
+			String semesterName) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.noOfEsp = noOfEsp;
+		this.yearOfStudy = yearOfStudy;
+		this.semesterEntityId = semesterEntityId;
+		this.semesterName = semesterName;
+	}
+
+
 
 	public Integer getYearOfStudy() {
 		return yearOfStudy;
@@ -95,17 +106,25 @@ public class SubjectDto {
 		this.noOfEsp = noOfEsp;
 	}
 
-	public SemesterDto getSemester() {
-		return semester;
+	public Integer getSemesterEntityId() {
+		return semesterEntityId;
 	}
 
-	public void setSemester(SemesterDto semester) {
-		this.semester = semester;
+	public void setSemesterEntityId(Integer semesterEntityId) {
+		this.semesterEntityId = semesterEntityId;
+	}
+
+	public String getSemesterName() {
+		return semesterName;
+	}
+
+	public void setSemesterName(String semesterName) {
+		this.semesterName = semesterName;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, name, noOfEsp, semester, subjectId, yearOfStudy);
+		return Objects.hash(description, name, noOfEsp, semesterEntityId, semesterName, subjectId, yearOfStudy);
 	}
 
 	@Override
@@ -118,14 +137,16 @@ public class SubjectDto {
 			return false;
 		SubjectDto other = (SubjectDto) obj;
 		return Objects.equals(description, other.description) && Objects.equals(name, other.name)
-				&& Objects.equals(noOfEsp, other.noOfEsp) && Objects.equals(semester, other.semester)
-				&& Objects.equals(subjectId, other.subjectId) && Objects.equals(yearOfStudy, other.yearOfStudy);
+				&& Objects.equals(noOfEsp, other.noOfEsp) && Objects.equals(semesterEntityId, other.semesterEntityId)
+				&& Objects.equals(semesterName, other.semesterName) && Objects.equals(subjectId, other.subjectId)
+				&& Objects.equals(yearOfStudy, other.yearOfStudy);
 	}
 
 	@Override
 	public String toString() {
 		return "SubjectDto [subjectId=" + subjectId + ", name=" + name + ", description=" + description + ", noOfEsp="
-				+ noOfEsp + ", yearOfStudy=" + yearOfStudy + ", semester=" + semester + "]";
+				+ noOfEsp + ", yearOfStudy=" + yearOfStudy + ", semesterEntityId=" + semesterEntityId
+				+ ", semesterName=" + semesterName + "]";
 	}
 
 }

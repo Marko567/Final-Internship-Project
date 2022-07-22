@@ -17,22 +17,21 @@ import com.eng.marko.manojlovic.entity.Subject;
 import com.eng.marko.manojlovic.exception.EntityExistsException;
 import com.eng.marko.manojlovic.exception.InvalidEntityException;
 import com.eng.marko.manojlovic.mapper.SubjectMapStructMapper;
+import com.eng.marko.manojlovic.mapper.SubjectMapper;
 import com.eng.marko.manojlovic.repository.SubjectRepository;
 import com.eng.marko.manojlovic.service.SubjectService;
 
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
-	@Autowired
-	private SubjectRepository subjectRepository;
+	private final SubjectRepository subjectRepository;
+	private final SubjectMapper subjectMapper;
 	
-	@Autowired
-	private SubjectMapStructMapper subjectMapper;
-	
-//	public SubjectServiceImpl(SubjectRepository subjectRepository) {
-//		super();
-//		this.subjectRepository = subjectRepository;
-//	}
+	public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
+		super();
+		this.subjectRepository = subjectRepository;
+		this.subjectMapper = subjectMapper;
+	}
 
 	@Override
 	public List<SubjectDto> findAllSubjects() {
@@ -53,8 +52,7 @@ public class SubjectServiceImpl implements SubjectService {
 	
 	@Override
 	public SubjectDto saveSubject(SubjectDto subjectDto) throws EntityExistsException {
-		//return subjectMapper.toDtoNoId(subjectRepository.save(subjectMapper.toEntityNoId(subjectDto)));
-		return null;
+		return subjectMapper.toDtoNoId(subjectRepository.save(subjectMapper.toEntityNoId(subjectDto)));
 	}
 
 	@Override

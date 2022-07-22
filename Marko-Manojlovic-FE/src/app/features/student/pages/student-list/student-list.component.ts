@@ -48,7 +48,6 @@ export class StudentListComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.student = student;
 
     modalRef.result.then((yes) => {
-      console.log('Yes click');
       console.log("YES:", yes);
       this.loadStudents();
     },
