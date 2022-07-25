@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,13 +28,17 @@ public class AuthController {
 	
 	@CrossOrigin(origins="*")
 	@PostMapping(path="/login", consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ResponseEntity<MyUserDetails> authenticateUser(UserDto userDto) {
+	public ResponseEntity<MyUserDetails> authenticateUser(UserDto userDto) throws BadCredentialsException {
 		System.out.println("userDto: " + userDto);
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        		userDto.getUsername(), userDto.getPassword()));
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        System.out.println("user details: " + userDetails.getFirstname());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>(userDetails, HttpStatus.OK);
+		try {
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+	        		userDto.getUsername(), userDto.getPassword()));
+	        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+	        System.out.println("user details: " + userDetails.getFirstname());
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+	        return new ResponseEntity<>(userDetails, HttpStatus.OK);
+		} catch(BadCredentialsException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }

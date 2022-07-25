@@ -56,6 +56,7 @@ export class GeneralOverviewComponent implements OnInit {
       next: response => {
         this.loadActiveExamPeriod();
         this.loadExamPeriodList();
+        this.loadExamsFromActiveExamPeriod();
       },
       error: error => {
         console.log("Error", error);
@@ -69,6 +70,7 @@ export class GeneralOverviewComponent implements OnInit {
     modalRef.result.then((yes) => {
       console.log("yes:", yes);
       this.loadActiveExamPeriod();
+      this.loadExamsFromActiveExamPeriod();
     },
     (cancel) => {console.log("cancel click")})
   }

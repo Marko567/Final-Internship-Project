@@ -51,7 +51,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
 	@Override
 	public ProfessorDto saveProfessor(ProfessorDto professorDto) throws EntityExistsException {
-		return professorMapper.toDtoNoId(professorRepository.save(professorMapper.toEntityNoId(professorDto)));
+		return professorMapper.toDto(professorRepository.save(professorMapper.toEntityNoId(professorDto)));
 	}
 
 	@Override

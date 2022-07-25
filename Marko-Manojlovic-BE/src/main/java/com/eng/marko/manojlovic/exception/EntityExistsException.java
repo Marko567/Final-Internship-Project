@@ -9,7 +9,7 @@ public class EntityExistsException extends MyException {
 		super(message);
 		this.entity = entity;
 	}
-
+	
 	public Object getEntity() {
 		return entity;
 	}

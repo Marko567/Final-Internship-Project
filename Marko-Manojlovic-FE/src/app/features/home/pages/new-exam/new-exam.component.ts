@@ -6,6 +6,7 @@ import { HttpExamPeriodService } from 'src/app/core/services/http-exam-period.se
 import { HttpExamService } from 'src/app/core/services/http-exam.service';
 import { HttpProfessorService } from 'src/app/core/services/http-professor.service';
 import { HttpSubjectService } from 'src/app/core/services/http-subject.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-new-exam',
@@ -22,7 +23,7 @@ export class NewExamComponent implements OnInit {
 
   constructor(private httpSubject: HttpSubjectService, private httpExamPeriod: HttpExamPeriodService,
     private httpProfessor: HttpProfessorService, private fb: FormBuilder,
-    private router: Router, private httpExam: HttpExamService) { }
+    private router: Router, private httpExam: HttpExamService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.loadSubjects();
@@ -81,12 +82,14 @@ export class NewExamComponent implements OnInit {
     this.httpExam.saveExam(payload).subscribe({
       next: response => {
         console.log("response", response);
+        this.router.navigate(['/home/test/general-overview']);
       },
       error: error => {
         console.log("An error occured while saving the exam period...", error);
+        this.toastService.showToast({header: 'Saving exam', message: 'Exam is not saved, error ocured during saving!', className:'bg-danger'});
       }
     })
-    this.router.navigate(['/home/test/general-overview']);
+
   }
 
   buildForm() {

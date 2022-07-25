@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { City, Professor, Subject, Title } from 'src/app/core/models';
+import { City, Engagement, Professor, Subject, Title } from 'src/app/core/models';
 import { HttpCityService } from 'src/app/core/services/http-city.service';
+import { HttpEngagementService } from 'src/app/core/services/http-engagement.service';
 import { HttpProfessorService } from 'src/app/core/services/http-professor.service';
 import { HttpSubjectService } from 'src/app/core/services/http-subject.service';
 import { HttpTitleService } from 'src/app/core/services/http-title.service';
@@ -25,7 +26,7 @@ export class SaveNewProfessorComponent implements OnInit {
   constructor(private fb: FormBuilder, private cityService: HttpCityService,
      private professorService: HttpProfessorService, private router: Router,
      private titleService: HttpTitleService, private subjectService: HttpSubjectService,
-     private toastService: ToastService) { }
+     private engagementService: HttpEngagementService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -46,14 +47,38 @@ export class SaveNewProfessorComponent implements OnInit {
     this.professorService.saveProfessor(formData).subscribe({
       next: response => {
         console.log("response", response);
-        this.router.navigate(['/professor/professor-list']);
+        this.toastService.showToast({header: 'Saving professor', message: `Professor ${response.firstname} ${response.lastname} is successfully saved!`, className:'bg-success'});
+        let engagements: Engagement[] = [];
+        if(this.selectedSubjects && this.selectedSubjects.length > 0) {
+          for(let i = 0; i < this.selectedSubjects.length; i++) {
+            engagements.push({professorId: response.professorId, subjectId: this.selectedSubjects[i].subjectId} as Engagement);
+          }
+
+          console.log("Engagements of professor: ", engagements);
+
+          this.saveEngagements(engagements);
+        }
       },
       error: error => {
-        console.log("Error occured while saving student...", error);
-        this.toastService.showToast({header: 'Saving professor', message: 'Professor is not saved, error ocured during saving!', className:'bg-danger'});
+        console.log("Error occured while saving professor...", error);
+        this.toastService.showToast({header: 'Saving professor', message: 'Professor is not saved, error occured during saving!', className:'bg-danger'});
       }
     })
 
+  }
+
+  saveEngagements(engagements: Engagement[]) {
+    this.engagementService.saveEngagements(engagements).subscribe({
+      next: response2 => {
+        console.log("response2", response2);
+        this.toastService.showToast({header: 'Saving engagements', message: 'Professor\'s engagements are successfully saved', className:'bg-success'})
+        this.router.navigate(['/professor/professor-list']);
+      },
+      error: error => {
+        console.log("Error ocured while saving engagements", error);
+        this.toastService.showToast({header: 'Saving engagements', message: 'An error occured during saving professor\'s engagements', className:'bg-danger'})
+      }
+    });
   }
 
   addSubject() {
