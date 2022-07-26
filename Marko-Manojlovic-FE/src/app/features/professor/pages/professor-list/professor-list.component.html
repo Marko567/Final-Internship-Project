@@ -1,5 +1,5 @@
 <h3 class="px-3">Professor List</h3>
-<a class="alert-heading add-new-button float-end" routerLink="/professor/add-new-professor">Add New Professor</a>
+<a class="alert-heading add-new-button float-end mx-3" routerLink="/professor/add-new-professor">Add New Professor</a>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -8,7 +8,7 @@
       <th scope="col" sortable="lastname" direction="" (sort)="onSort($event)">Lastname</th>
       <th scope="col" sortable="title" direction="" (sort)="onSort($event)">Title</th>
       <th scope="col" sortable="reelectionDate" direction="" (sort)="onSort($event)">Reelection Date</th>
-      <th scope="col">Actions</th>
+      <th scope="col" class="text-center">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +18,7 @@
       <td>{{professor.lastname}}</td>
       <td>{{professor.title.name}}</td>
       <td>{{professor.reelectionDate}}</td>
-      <td>
+      <td class="text-center">
         <button class="btn btn-outline-success"  (click)="onEditProfessor(professor)" ><bi name="pencil"></bi>Edit</button>
         <button class="btn btn-outline-success" (click)="onDetails(professor)">Details</button>
         <button type="button" (click)="onDelete(professor)" class="btn btn-outline-success">Delete</button>

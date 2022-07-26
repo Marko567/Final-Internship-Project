@@ -1,5 +1,5 @@
-<h3>Subject List</h3>
-<a class="alert-heading add-new-button float-end" routerLink="/subject/add-new-subject">Add New Subject</a>
+<h3 class="px-3">Subject List</h3>
+<a class="alert-heading add-new-button float-end mx-3" routerLink="/subject/add-new-subject">Add New Subject</a>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -7,7 +7,7 @@
       <th scope="col" sortable="name" direction="asc" (sort)="onSort($event)">Name</th>
       <th scope="col" sortable="noOfEsp" direction="" (sort)="onSort($event)">NoOfEsp</th>
       <th scope="col" sortable="semester" direction="" (sort)="onSort($event)">Semester</th>
-      <th scope="col">Actions</th>
+      <th scope="col" class="text-center">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +16,7 @@
       <td>{{subject.name}}</td>
       <td>{{subject.noOfEsp}}</td>
       <td>{{subject.semester.name}}</td>
-      <td>
+      <td class="text-center">
         <button class="btn btn-outline-success"  (click)="onEditSubject(subject)" ><bi name="pencil"></bi>Edit</button>
         <button class="btn btn-outline-success" (click)="onDetails(subject)">Details</button>
         <button type="button" (click)="onDelete(subject)" class="btn btn-outline-success">Delete</button>

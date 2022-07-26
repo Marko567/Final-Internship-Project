@@ -29,22 +29,25 @@
       <div class="from-group">
         <label for="endDate">End Date:</label>
         <input id="endDate" class="form-control"  type="date" formControlName="endDate" />
-        <!-- <div class="alert alert-danger" *ngIf="hasErrors('startDate')">
-          <span *ngIf="hasErrors('reelectionDate','required')" >
+        <div class="alert alert-danger" *ngIf="hasErrors('endDate')">
+          <span *ngIf="hasErrors('endDate','required')" >
             <small>This field is required</small>
           </span>
-        </div> -->
+        </div>
       </div>
       <div class="from-group">
         <label for="examPeriodStatus">Exam Period Status: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
         <select id="examPeriodStatus"  formControlName="examPeriodStatus">
           <option *ngFor="let status of examPeriodStatuses" [ngValue]="status">{{status.name}}</option>
         </select>
-        <!-- <div class="alert alert-danger" *ngIf="hasErrors('semesterName')">
-          <span *ngIf="hasErrors('semesterName','required')" >
+        <div class="alert alert-danger" *ngIf="hasErrors('examPeriodStatus')">
+          <span *ngIf="hasErrors('examPeriodStatus','required')" >
             <small>This field is required</small>
           </span>
-        </div> -->
+          <span *ngIf="hasErrors('examPeriodStatus', 'activeExamPeriods')" >
+            <small>There is already active exam period</small>
+          </span>
+        </div>
       </div>
       <div class="d-flex flex-row-reverse mt-2">
         <button type="submit" class="btn btn-dark" >Save</button> &nbsp;&nbsp;&nbsp;

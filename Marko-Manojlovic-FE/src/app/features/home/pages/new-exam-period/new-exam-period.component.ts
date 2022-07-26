@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ExamPeriodStatus } from 'src/app/core/models';
+import { ExamPeriod, ExamPeriodStatus } from 'src/app/core/models';
 import { HttpExamPeriodStatusService } from 'src/app/core/services/http-exam-period-status.service';
 import { HttpExamPeriodService } from 'src/app/core/services/http-exam-period.service';
+import { activeExamPeriodValidator } from 'src/app/shared/validators/active-exam-period.validator';
 
 @Component({
   selector: 'app-new-exam-period',
@@ -13,13 +14,28 @@ import { HttpExamPeriodService } from 'src/app/core/services/http-exam-period.se
 export class NewExamPeriodComponent implements OnInit {
   examPeriodForm?: FormGroup;
   examPeriodStatuses: ExamPeriodStatus[] = [];
+  activeExamPeriod?: ExamPeriod;
 
-  constructor(private httpExamPeriodStatus: HttpExamPeriodStatusService, private fb: FormBuilder,
-    private httpExamPeriod: HttpExamPeriodService, private router: Router) { }
+  constructor(private httpExamPeriodStatus: HttpExamPeriodStatusService,
+    private fb: FormBuilder, private httpExamPeriod: HttpExamPeriodService,
+    private router: Router) {}
 
   ngOnInit(): void {
+    this.loadActiveExamPeriod();
     this.httpExamPeriodStatus.getAll().subscribe(response => this.examPeriodStatuses = response);
     this.buildForm();
+  }
+
+  loadActiveExamPeriod() {
+    this.httpExamPeriod.getActiveExamPeriod().subscribe({
+      next: response => {
+        this.activeExamPeriod = response;
+        console.log("Response: ", response);
+      },
+      error: error=> {
+        console.log("Error", error);
+      }
+    });
   }
 
   hasErrors(componentName: string, errorCode?: string) {
@@ -34,7 +50,7 @@ export class NewExamPeriodComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       startDate: [''],
       endDate: ['', Validators.required],
-      examPeriodStatus: ['', Validators.required],
+      examPeriodStatus: ['', [Validators.required]],
     })
   }
 

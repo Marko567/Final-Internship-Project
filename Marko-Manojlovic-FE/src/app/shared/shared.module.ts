@@ -16,6 +16,7 @@ import { ExamPeriodListComponent } from './components/exam-period-list/exam-peri
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { GlobalToastComponent } from './components/global-toast/global-toast.component';
 import { SortableHeaderDirective } from './directives/sortable-header.directive';
+import { activeExamPeriodValidator } from './validators/active-exam-period.validator';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { SortableHeaderDirective } from './directives/sortable-header.directive'
     NgbNavModule,
     NgbDropdownModule,
 
-    BootstrapSetupIconsModule,
+    BootstrapSetupIconsModule
   ], exports:[
     CommonModule,
     HttpClientModule,
